@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Регистрация - Гостиница «Алтай»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #B29559;
+      --dark-gold: #8a7546;
+      --light-gold: #e8ddc3;
+      --dark: #222;
+      --light: #f5f5f5;
+      --white: #fff;
+      --gray: #555;
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(135deg, var(--light-gold), var(--white));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .site-logo {
+      position: fixed; top: 18px; left: 25px; z-index: 2001;
+      cursor: pointer; transition: var(--transition);
+    }
+    .logo-text {
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+      padding: 8px 24px; border-radius: 50px;
+      display: flex; flex-direction: column; align-items: center;
+      border-left: 3px solid var(--gold); border-right: 3px solid var(--gold);
+    }
+    .logo-altai {
+      font-size: 28px; font-weight: 700; letter-spacing: 4px;
+      color: var(--gold); font-family: 'Cormorant Garamond', serif;
+    }
+    .logo-hotel {
+      font-size: 12px; letter-spacing: 3px; color: #eee;
+      font-family: 'Cormorant Garamond', serif; text-transform: uppercase;
+    }
+    .navbar {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 0;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 70px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      transition: var(--transition);
+      font-size: 1.05em;
+      white-space: nowrap;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .auth-link {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white !important;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+    }
+    .lang-switcher { position: relative; }
+    .lang-select {
+      padding: 8px 30px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      background: var(--white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      min-width: 110px;
+    }
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+    .auth-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      padding: 3rem;
+      width: 100%;
+      max-width: 550px;
+      position: relative;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .auth-header { text-align: center; margin-bottom: 2rem; }
+    .auth-icon { font-size: 3em; color: var(--gold); margin-bottom: 0.5rem; }
+    .auth-header h1 { font-size: 2.2em; color: var(--dark); font-weight: 600; font-family: 'Cormorant Garamond', serif; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark); font-family: 'Cormorant Garamond', serif; }
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--light-gold);
+      border-radius: 10px;
+      font-size: 1em;
+      background: var(--light);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .form-control:focus { border-color: var(--gold); outline: none; background: var(--white); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: var(--white);
+      border: none;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-size: 1.2em;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      margin-top: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(178,149,89,0.6); }
+    .auth-links { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid var(--light-gold); }
+    .auth-links a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .alert {
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    footer {
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
+      padding: 2rem 1rem;
+      margin-top: auto;
+      color: #eee;
+      text-align: center;
+    }
+    .footer-contacts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    .footer-contact-item i { color: var(--gold); margin-right: 8px; }
+    .official-site-link {
+      background: var(--gold);
+      padding: 8px 20px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .developer { color: var(--gold); }
+    @media (max-width: 768px) {
+      .nav-container { justify-content: space-between; }
+      .nav-menu { flex-direction: column; background: white; padding: 1rem; border-radius: 10px; margin-top: 0.5rem; width: 100%; }
+      .auth-card { padding: 1.5rem; margin: 1rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.7rem; }
+    }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gold); }
+    @media (max-width: 768px) { .mobile-menu-btn { display: block; } }
+  </style>
+</head>
+<body>
+  <div class="site-logo" onclick="location.href='/'">
+    <div class="logo-text">
+      <span class="logo-altai">ALTAI</span>
+      <span class="logo-hotel">HOTEL</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="nav-container">
+      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-menu">
+          <a href="/" class="nav-link" data-lang-key="navHome">Главная</a>
+          <a href="/about" class="nav-link" data-lang-key="navAbout">О нас</a>
+          <a href="/booking" class="nav-link" data-lang-key="navBooking">Бронирование</a>
+          <a href="/contacts" class="nav-link" data-lang-key="navContacts">Контакты</a>
+          <a href="/personal" class="nav-link" data-lang-key="navProfile">Личный кабинет</a>
+          <a href="/login" class="nav-link auth-link" data-lang-key="login">Вход</a>
+          <a href="/register" class="nav-link auth-link active" data-lang-key="register">Регистрация</a>
+          <div class="lang-switcher">
+            <select class="lang-select" id="languageSelect">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+        <h1 data-lang-key="pageTitle">Регистрация</h1>
+      </div>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <form method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang-key="nameLabel">Имя *</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label data-lang-key="phoneLabel">Телефон *</label>
+            <input type="tel" name="phone" class="form-control" required placeholder="+7XXXXXXXXXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-lang-key="emailLabel">Email *</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang-key="passwordLabel">Пароль *</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label data-lang-key="confirmLabel">Подтверждение пароля *</label>
+            <input type="password" name="confirm_password" class="form-control" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit" data-lang-key="submitBtn">Зарегистрироваться</button>
+      </form>
+      <div class="auth-links">
+        <p data-lang-key="haveAccount">Уже есть аккаунт? <a href="/login" data-lang-key="loginLink">Войти</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-contacts">
+      <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+      <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+78007003650">+7-800-700-36-50</a></div>
+      <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@hotel-altai22.ru">info@hotel-altai22.ru</a></div>
+    </div>
+    <a href="https://hotel-altai22.ru/" target="_blank" class="official-site-link" data-lang-key="officialSiteLink">Перейти на официальный сайт гостиницы «Алтай»</a>
+    <div class="footer-bottom">
+      <span data-lang-key="copyright">© 2026 ООО "ГостАлт". Все права защищены.</span>
+      <span class="developer" data-lang-key="developer">Разработчик: Еграшина Валерия</span>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        pageTitle: "Регистрация", nameLabel: "Имя *", phoneLabel: "Телефон *", emailLabel: "Email *",
+        passwordLabel: "Пароль *", confirmLabel: "Подтверждение пароля *", submitBtn: "Зарегистрироваться",
+        haveAccount: "Уже есть аккаунт?", loginLink: "Войти",
+        navHome: "Главная", navAbout: "О нас", navBooking: "Бронирование", navContacts: "Контакты",
+        navProfile: "Личный кабинет", login: "Вход", register: "Регистрация",
+        officialSiteLink: "Перейти на официальный сайт гостиницы «Алтай»",
+        copyright: "© 2026 ООО \"ГостАлт\". Все права защищены.",
+        developer: "Разработчик: Еграшина Валерия",
+        footerAddress: "г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83"
+      },
+      en: {
+        pageTitle: "Registration", nameLabel: "Name *", phoneLabel: "Phone *", emailLabel: "Email *",
+        passwordLabel: "Password *", confirmLabel: "Confirm Password *", submitBtn: "Register",
+        haveAccount: "Already have an account?", loginLink: "Login",
+        navHome: "Home", navAbout: "About", navBooking: "Booking", navContacts: "Contacts",
+        navProfile: "Profile", login: "Login", register: "Register",
+        officialSiteLink: "Go to official website of Hotel Altai",
+        copyright: "© 2026 LLC \"GostAlt\". All rights reserved.",
+        developer: "Developer: Valeria Egrashina",
+        footerAddress: "Barnaul, Lenina Ave 24 / Anatoliya St 83"
+      },
+      zh: {
+        pageTitle: "注册", nameLabel: "姓名 *", phoneLabel: "电话 *", emailLabel: "邮箱 *",
+        passwordLabel: "密码 *", confirmLabel: "确认密码 *", submitBtn: "注册",
+        haveAccount: "已有账户？", loginLink: "登录",
+        navHome: "首页", navAbout: "关于", navBooking: "预订", navContacts: "联系方式",
+        navProfile: "个人中心", login: "登录", register: "注册",
+        officialSiteLink: "前往阿尔泰酒店官方网站",
+        copyright: "© 2026 戈斯特阿尔特有限责任公司。版权所有。",
+        developer: "开发者: 瓦莱里娅·叶格拉希娜",
+        footerAddress: "巴尔瑙尔市，列宁大道24号/阿纳托利亚街83号"
+      }
+    };
+
+    function changeLanguage(lang) {
+      const t = translations[lang];
+      if (!t) return;
+      
+      const elements = document.querySelectorAll('[data-lang-key]');
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i];
+        const key = el.getAttribute('data-lang-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            if (el.placeholder !== undefined) el.placeholder = t[key];
+          } else {
+            el.innerText = t[key];
+          }
+        }
+      }
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    const langSelect = document.getElementById('languageSelect');
+    if (langSelect) {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+      langSelect.value = savedLang;
+      changeLanguage(savedLang);
+      langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>О нас - Конференц-зал «Алтай»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #B29559;
+      --dark-gold: #8a7546;
+      --light-gold: #e8ddc3;
+      --dark: #222;
+      --light: #f5f5f5;
+      --white: #fff;
+      --gray: #555;
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* --- СТИЛЬНЫЙ ТЕКСТОВЫЙ ЛОГОТИП ALTAI HOTEL --- */
+    .site-logo {
+      position: fixed;
+      top: 18px;
+      left: 25px;
+      z-index: 2001;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .logo-text {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      padding: 8px 24px;
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-left: 3px solid var(--gold);
+      border-right: 3px solid var(--gold);
+      transition: var(--transition);
+    }
+    .logo-text:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.02);
+      border-left-color: var(--dark-gold);
+      border-right-color: var(--dark-gold);
+    }
+    .logo-altai {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .logo-hotel {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #eee;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .site-logo { top: 12px; left: 15px; }
+      .logo-text { padding: 5px 16px; }
+      .logo-altai { font-size: 20px; letter-spacing: 3px; }
+      .logo-hotel { font-size: 9px; letter-spacing: 2px; }
+    }
+    @media (max-width: 480px) {
+      .logo-text { padding: 4px 12px; }
+      .logo-altai { font-size: 16px; letter-spacing: 2px; }
+      .logo-hotel { font-size: 7px; letter-spacing: 1.5px; }
+    }
+
+    /* Навигация */
+    .navbar {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 10px 0;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 70px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      transition: var(--transition);
+      font-size: 1.05em;
+      white-space: nowrap;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .auth-link {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white !important;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(178,149,89,0.3);
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .auth-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(178,149,89,0.5);
+      background: var(--dark-gold);
+      color: white;
+    }
+    .lang-switcher { position: relative; }
+    .lang-select {
+      padding: 8px 30px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      background: var(--white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      transition: var(--transition);
+      min-width: 110px;
+    }
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gold);
+      color: var(--white);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: none;
+      font-size: 1.2em;
+    }
+    .scroll-to-top:hover { background: var(--dark-gold); transform: translateY(-3px) scale(1.1); }
+
+    /* Контент */
+    .content-section { max-width: 1200px; margin: 100px auto 60px; padding: 0 20px; }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--dark);
+      position: relative;
+      font-weight: 600;
+    }
+    .section-title:after {
+      content: ''; display: block; width: 120px; height: 4px;
+      background: var(--gold); margin: 20px auto; border-radius: 2px;
+    }
+    @media (max-width: 768px) { .section-title { font-size: 2.2em; } }
+
+    .about-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('/static/images/зал.jpg');
+      background-size: cover; background-position: center; background-attachment: fixed;
+      padding: 6rem 2rem; text-align: center; color: var(--white);
+      border-radius: 20px; margin-bottom: 4rem; position: relative; overflow: hidden;
+    }
+    .about-hero::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    .about-hero h1 { font-size: 3.5em; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
+    @media (max-width: 768px) { .about-hero h1 { font-size: 2.5em; } }
+    .about-hero p { font-size: 1.4em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-bottom: 4rem; }
+    .feature-card {
+      background: var(--white); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: var(--transition);
+      text-align: center; padding: 3rem 2rem; position: relative;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: var(--gold); transform: scaleX(0); transition: var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-icon { font-size: 4em; color: var(--gold); margin-bottom: 2rem; transition: var(--transition); display: inline-block; }
+    .feature-card:hover .feature-icon { transform: scale(1.2) rotate(5deg); }
+    .feature-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.7em; margin-bottom: 1.5rem; color: var(--dark); font-weight: 600; }
+    .feature-card p { color: var(--gray); line-height: 1.7; font-size: 1.1em; }
+
+    .hall-details {
+      background: var(--white); border-radius: 20px; padding: 4rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hall-details::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
+    .detail-item { display: flex; align-items: flex-start; margin-bottom: 2rem; padding: 1.5rem; border-radius: 10px; transition: var(--transition); }
+    .detail-item:hover { background: var(--light-gold); transform: translateX(10px); }
+    .detail-icon { color: var(--gold); font-size: 2em; margin-right: 1.5rem; flex-shrink: 0; transition: var(--transition); }
+    .detail-item:hover .detail-icon { transform: scale(1.2) rotate(10deg); }
+    .detail-text h4 { margin: 0 0 0.8rem 0; font-family: 'Cormorant Garamond', serif; color: var(--dark); font-weight: 600; font-size: 1.3em; }
+    .detail-text p { margin: 0; color: var(--gray); font-size: 1.1em; line-height: 1.6; }
+
+    .pricing { text-align: center; margin-bottom: 4rem; }
+    .price-card {
+      background: var(--white); border-radius: 20px; padding: 4rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15); max-width: 500px; margin: 0 auto;
+      position: relative; overflow: hidden; transition: var(--transition); border: 2px solid transparent;
+    }
+    .price-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .price-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.2); border-color: var(--gold); }
+    .price-amount { font-size: 4em; font-family: 'Cormorant Garamond', serif; color: var(--gold); margin: 2rem 0; font-weight: 600; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+    .price-period { color: var(--gray); font-size: 1.3em; margin-bottom: 2.5rem; }
+    .price-features { list-style: none; padding: 0; margin: 0 0 3rem 0; text-align: left; }
+    .price-features li { padding: 1rem 0; border-bottom: 1px solid #eee; position: relative; padding-left: 2.5rem; transition: var(--transition); font-size: 1.1em; }
+    .price-features li:hover { background-color: rgba(178, 149, 89, 0.05); padding-left: 3rem; }
+    .price-features li:before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: bold; font-size: 1.2em; }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: var(--white); border: none;
+      padding: 18px 35px; border-radius: 50px; font-size: 1.2em; cursor: pointer;
+      transition: var(--transition); width: 100%; font-weight: 600; box-shadow: 0 8px 25px rgba(178, 149, 89, 0.4);
+      font-family: 'Cormorant Garamond', serif; position: relative; overflow: hidden; display: inline-block; text-align: center; text-decoration: none;
+    }
+    .btn-submit::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: var(--transition); }
+    .btn-submit:hover::before { left: 100%; }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(178, 149, 89, 0.6); color: white; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .gallery-item {
+      height: 320px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: var(--transition);
+      position: relative;
+      cursor: pointer;
+      background: transparent;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+      background: transparent;
+      display: block;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02) translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(5px);
+    }
+    .modal-content-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: none;
+      object-fit: contain;
+      background: transparent;
+      border: none;
+    }
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2001;
+      background: rgba(0,0,0,0.5);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+    }
+    .close:hover {
+      color: var(--gold);
+      transform: rotate(90deg) scale(1.1);
+      background: rgba(0,0,0,0.8);
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2.5em;
+      padding: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2001;
+    }
+    .nav-btn:hover {
+      background: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .prev { left: 30px; }
+    .next { right: 30px; }
+
+    .quote-section {
+      background: linear-gradient(135deg, var(--light-gold), var(--white)); padding: 4rem 2rem;
+      border-radius: 20px; margin: 4rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .quote-section::before { content: '"'; position: absolute; top: 20px; left: 40px; font-size: 8em; color: var(--gold); opacity: 0.2; font-family: serif; }
+    .quote-text { font-size: 1.6em; font-style: italic; color: var(--dark); margin-bottom: 1.5rem; position: relative; z-index: 1; line-height: 1.6; }
+
+    footer {
+      padding: 3rem 1rem 2rem; background: linear-gradient(135deg, var(--dark), #000); text-align: center; margin-top: 6rem; font-size: 1em; color: var(--white); position: relative;
+    }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .footer-contacts { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; }
+    .footer-contact-item { display: flex; align-items: center; gap: 0.8rem; color: var(--white); font-size: 1.1em; }
+    .footer-contact-item i { color: var(--gold); font-size: 1.2em; }
+    .footer-contact-item a, .footer-contact-item span { color: var(--white); text-decoration: none; transition: var(--transition); }
+    .footer-contact-item a:hover { color: var(--gold); text-decoration: underline; }
+    .official-site-link { display: inline-block; background: var(--gold); color: var(--white); padding: 12px 25px; border-radius: 50px; text-decoration: none; margin: 1.5rem 0; transition: var(--transition); font-family: 'Cormorant Garamond', serif; font-weight: 600; box-shadow: 0 4px 15px rgba(178, 149, 89, 0.3); }
+    .official-site-link:hover { background: var(--dark-gold); transform: translateY(-3px) scale(1.05); box-shadow: 0 6px 20px rgba(178, 149, 89, 0.4); color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.2rem; font-size: 0.9rem; }
+    .developer { font-style: italic; color: var(--gold); }
+    @media (max-width: 768px) {
+      .nav-menu { flex-direction: column; gap: 0.8rem; }
+      .navbar-collapse { background: var(--white); padding: 1rem; border-radius: 10px; margin-top: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+      .hall-details { padding: 2rem; }
+      .price-card { padding: 2rem; }
+      .content-section { margin: 100px auto 60px; }
+      .gallery { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+      .footer-contacts { flex-direction: column; align-items: center; gap: 1rem; }
+      .footer-bottom { flex-direction: column; gap: 0.7rem; text-align: center; }
+      .mobile-menu-btn { display: flex; }
+      .nav-container { justify-content: space-between; }
+    }
+    .mobile-menu-btn { display: none; flex-direction: column; cursor: pointer; border: none; background: none; padding: 5px; }
+    .bar { width: 25px; height: 3px; background: var(--dark); margin: 3px 0; transition: var(--transition); }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- СТИЛЬНЫЙ ТЕКСТОВЫЙ ЛОГОТИП ALTAI HOTEL -->
+  <div class="site-logo">
+    <div class="logo-text">
+      <span class="logo-altai">ALTAI</span>
+      <span class="logo-hotel">HOTEL</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="nav-container">
+      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-menu">
+          <a href="/" class="nav-link" data-lang-key="navHome">Главная</a>
+          <a href="/about" class="nav-link active" data-lang-key="navAbout">О нас</a>
+          <a href="/booking" class="nav-link" data-lang-key="navBooking">Бронирование</a>
+          <a href="/contacts" class="nav-link" data-lang-key="navContacts">Контакты</a>
+          <a href="/personal" class="nav-link" data-lang-key="navProfile">Личный кабинет</a>
+          <a href="/login" class="nav-link auth-link" data-lang-key="login">Вход</a>
+          <a href="/register" class="nav-link auth-link" data-lang-key="register">Регистрация</a>
+          <div class="lang-switcher">
+            <select class="lang-select" id="languageSelect">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <button class="scroll-to-top" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+
+  <div class="content-section">
+    <div class="about-hero fade-in">
+      <h1 id="pageTitle" data-lang-key="pageTitle">Конференц-зал «Алтай»</h1>
+      <p id="heroSubtitle" data-lang-key="heroSubtitle">Современное пространство для ваших мероприятий в самом центре Барнаула</p>
+    </div>
+
+    <div class="quote-section fade-in">
+      <p class="quote-text" id="quote1" data-lang-key="quote1">"Мы создаем идеальные условия для ваших важных встреч и мероприятий. Каждая деталь продумана для вашего комфорта и успеха."</p>
+    </div>
+
+    <h2 class="section-title fade-in" id="aboutHall" data-lang-key="aboutHall">О нашем конференц-зале</h2>
+    <div class="features">
+      <div class="feature-card fade-in">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <h3 id="capacityTitle" data-lang-key="capacityTitle">Вместительность</h3>
+        <p id="capacityText" data-lang-key="capacityText">Просторный зал рассчитан на комфортное размещение до 30 человек для продуктивной работы и эффективного взаимодействия</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+        <h3 id="techTitle" data-lang-key="techTitle">Технологии</h3>
+        <p id="techText" data-lang-key="techText">Современное оборудование, высокоскоростной Wi-Fi, система видеоконференций и профессиональная аудиосистема</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon"><i class="fas fa-coffee"></i></div>
+        <h3 id="comfortTitle" data-lang-key="comfortTitle">Комфорт</h3>
+        <p id="comfortText" data-lang-key="comfortText">Эргономичная мебель, климат-контроль, организация кофе-брейков и все необходимое для продуктивной работы</p>
+      </div>
+    </div>
+
+    <h2 class="section-title fade-in" id="equipmentTitle" data-lang-key="equipmentTitle">Оснащение зала</h2>
+    <div class="hall-details fade-in">
+      <div class="details-grid">
+        <div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-tv"></i></div>
+            <div class="detail-text"><h4 id="multimediaTitle" data-lang-key="multimediaTitle">Мультимедиа</h4><p id="multimediaText" data-lang-key="multimediaText">Телевизор 65", экран, флипчарт, интерактивная доска</p></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-microphone"></i></div>
+            <div class="detail-text"><h4 id="audioTitle" data-lang-key="audioTitle">Аудиосистема</h4><p id="audioText" data-lang-key="audioText">Профессиональные микрофоны, акустическая система, система видеоконференцсвязи</p></div>
+          </div>
+        </div>
+        <div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-chair"></i></div>
+            <div class="detail-text"><h4 id="furnitureTitle" data-lang-key="furnitureTitle">Мебель</h4><p id="furnitureText" data-lang-key="furnitureText">Эргономичные кресла, трансформируемые столы, комфортные зоны для отдыха</p></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-utensils"></i></div>
+            <div class="detail-text"><h4 id="serviceTitle" data-lang-key="serviceTitle">Обслуживание</h4><p id="serviceText" data-lang-key="serviceText">Кофе-брейки премиум-класса, бизнес-ланчи (450 руб), банкетное обслуживание высшего уровня</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title fade-in" id="pricingTitle" data-lang-key="pricingTitle">Стоимость аренды</h2>
+    <div class="pricing">
+      <div class="price-card fade-in">
+        <h3 style="font-size: 1.8em; margin-bottom: 1rem;" id="basicTariff" data-lang-key="basicTariff">Базовый тариф</h3>
+        <div class="price-amount">1 400 <span style="color: var(--gold)">₽</span></div>
+        <div class="price-period" id="perHour" data-lang-key="perHour">в час</div>
+        <ul class="price-features">
+          <li id="feature1" data-lang-key="feature1">Аренда зала до 4 часов</li>
+          <li id="feature2" data-lang-key="feature2">Базовое оборудование и Wi-Fi</li>
+          <li id="feature3" data-lang-key="feature3">Питьевая вода и техническая поддержка</li>
+          <li id="feature4" data-lang-key="feature4">Кондиционер и отопление</li>
+          <li id="feature5" data-lang-key="feature5">Профессиональное освещение</li>
+        </ul>
+        <a href="/booking" class="btn-submit" id="bookNowBtn" data-lang-key="bookNowBtn">Забронировать сейчас</a>
+      </div>
+    </div>
+
+    <h2 class="section-title fade-in" id="galleryTitle" data-lang-key="galleryTitle">Галерея зала</h2>
+    <div class="gallery">
+      <div class="gallery-item fade-in" onclick="openModal(0)"><img src="/static/images/зал.jpg" alt="Конференц-зал Алтай - основной вид"></div>
+      <div class="gallery-item fade-in" onclick="openModal(1)"><img src="/static/images/зал2.jpg" alt="Конференц-зал Алтай - интерьер"></div>
+      <div class="gallery-item fade-in" onclick="openModal(2)"><img src="/static/images/зал3.jpg" alt="Конференц-зал Алтай - оборудование"></div>
+      <div class="gallery-item fade-in" onclick="openModal(3)"><img src="/static/images/зал4.jpg" alt="Конференц-зал Алтай - детали"></div>
+      <div class="gallery-item fade-in" onclick="openModal(4)"><img src="/static/images/зал5.jpg" alt="Конференц-зал Алтай - переговорная зона"></div>
+      <div class="gallery-item fade-in" onclick="openModal(5)"><img src="/static/images/зал6.jpg" alt="Конференц-зал Алтай - общий план"></div>
+    </div>
+
+    <div id="imageModal" class="modal">
+      <button class="close" onclick="closeModal()">&times;</button>
+      <button class="nav-btn prev" onclick="changeImage(-1)">&#10094;</button>
+      <button class="nav-btn next" onclick="changeImage(1)">&#10095;</button>
+      <div class="modal-content-container">
+        <img id="modalImage" class="modal-content" src="" alt="">
+      </div>
+    </div>
+
+    <div class="quote-section fade-in" style="background: linear-gradient(135deg, var(--white), var(--light-gold));">
+      <p class="quote-text" id="quote2" data-lang-key="quote2">"Ваше мероприятие заслуживает идеального пространства. Мы создаем условия, где рождаются великие идеи и заключаются важные сделки."</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-contacts">
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+78007003650">+7-800-700-36-50</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@hotel-altai22.ru">info@hotel-altai22.ru</a></div>
+      </div>
+      <a href="https://hotel-altai22.ru/" target="_blank" class="official-site-link" data-lang-key="officialSiteLink">Перейти на официальный сайт гостиницы «Алтай»</a>
+      <div class="footer-bottom">
+        <span data-lang-key="copyright">© 2026 ООО "ГостАлт". Все права защищены.</span>
+        <span class="developer">Разработчик: Еграшина Валерия</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var images = [
+      { src: "/static/images/зал.jpg", alt: 'Конференц-зал Алтай - основной вид' },
+      { src: "/static/images/зал2.jpg", alt: 'Конференц-зал Алтай - интерьер' },
+      { src: "/static/images/зал3.jpg", alt: 'Конференц-зал Алтай - оборудование' },
+      { src: "/static/images/зал4.jpg", alt: 'Конференц-зал Алтай - детали' },
+      { src: "/static/images/зал5.jpg", alt: 'Конференц-зал Алтай - переговорная зона' },
+      { src: "/static/images/зал6.jpg", alt: 'Конференц-зал Алтай - общий план' }
+    ];
+    var currentImageIndex = 0;
+
+    function openModal(index) {
+      currentImageIndex = index;
+      document.getElementById('imageModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      updateModalImage();
+    }
+    function updateModalImage() {
+      var imgData = images[currentImageIndex];
+      var modalImage = document.getElementById('modalImage');
+      modalImage.src = imgData.src;
+      modalImage.alt = imgData.alt;
+    }
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    function changeImage(direction) {
+      currentImageIndex = currentImageIndex + direction;
+      if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+      if (currentImageIndex >= images.length) currentImageIndex = 0;
+      updateModalImage();
+    }
+    var modalElement = document.getElementById('imageModal');
+    if (modalElement) {
+      modalElement.addEventListener('click', function(event) { if (event.target === this) closeModal(); });
+    }
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.addEventListener('scroll', function() {
+      var scrollToTopBtn = document.querySelector('.scroll-to-top');
+      if (window.pageYOffset > 300) scrollToTopBtn.style.display = 'flex';
+      else scrollToTopBtn.style.display = 'none';
+
+      var fadeElements = document.querySelectorAll('.fade-in');
+      for (var i = 0; i < fadeElements.length; i++) {
+        var el = fadeElements[i];
+        if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add('visible');
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      var fadeElements = document.querySelectorAll('.fade-in');
+      for (var i = 0; i < fadeElements.length; i++) {
+        var el = fadeElements[i];
+        if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add('visible');
+      }
+    });
+
+    var translations = {
+      'ru': {
+        'hotel_prefix': 'Гостиница', 'hotel_name': '«Алтай»', 'pageTitle': 'Конференц-зал «Алтай»', 'heroSubtitle': 'Современное пространство для ваших мероприятий в самом центре Барнаула',
+        'quote1': '"Мы создаем идеальные условия для ваших важных встреч и мероприятий. Каждая деталь продумана для вашего комфорта и успеха."',
+        'quote2': '"Ваше мероприятие заслуживает идеального пространства. Мы создаем условия, где рождаются великие идеи и заключаются важные сделки."',
+        'aboutHall': 'О нашем конференц-зале', 'capacityTitle': 'Вместительность', 'capacityText': 'Просторный зал рассчитан на комфортное размещение до 30 человек для продуктивной работы и эффективного взаимодействия',
+        'techTitle': 'Технологии', 'techText': 'Современное оборудование, высокоскоростной Wi-Fi, система видеоконференций и профессиональная аудиосистема',
+        'comfortTitle': 'Комфорт', 'comfortText': 'Эргономичная мебель, климат-контроль, организация кофе-брейков и все необходимое для продуктивной работы',
+        'equipmentTitle': 'Оснащение зала', 'multimediaTitle': 'Мультимедиа', 'multimediaText': 'Телевизор 65", экран, флипчарт, интерактивная доска',
+        'audioTitle': 'Аудиосистема', 'audioText': 'Профессиональные микрофоны, акустическая система, система видеоконференцсвязи',
+        'furnitureTitle': 'Мебель', 'furnitureText': 'Эргономичные кресла, трансформируемые столы, комфортные зоны для отдыха',
+        'serviceTitle': 'Обслуживание', 'serviceText': 'Кофе-брейки премиум-класса, бизнес-ланчи (450 руб), банкетное обслуживание высшего уровня',
+        'pricingTitle': 'Стоимость аренды', 'basicTariff': 'Базовый тариф', 'perHour': 'в час',
+        'feature1': 'Аренда зала до 4 часов', 'feature2': 'Базовое оборудование и Wi-Fi', 'feature3': 'Питьевая вода и техническая поддержка',
+        'feature4': 'Кондиционер и отопление', 'feature5': 'Профессиональное освещение', 'bookNowBtn': 'Забронировать сейчас', 'galleryTitle': 'Галерея зала',
+        'navHome': 'Главная', 'navAbout': 'О нас', 'navBooking': 'Бронирование', 'navContacts': 'Контакты', 'navProfile': 'Личный кабинет',
+        'login': 'Вход', 'register': 'Регистрация', 'officialSiteLink': 'Перейти на официальный сайт гостиницы «Алтай»',
+        'copyright': '© 2026 ООО "ГостАлт". Все права защищены.', 'footerAddress': 'г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83'
+      },
+      'en': {
+        'hotel_prefix': 'Hotel', 'hotel_name': '"Altai"', 'pageTitle': 'Conference Hall "Altai"', 'heroSubtitle': 'Modern space for your events in the very center of Barnaul',
+        'quote1': '"We create ideal conditions for your important meetings and events. Every detail is thought out for your comfort and success."',
+        'quote2': '"Your event deserves a perfect space. We create conditions where great ideas are born and important deals are made."',
+        'aboutHall': 'About our conference hall', 'capacityTitle': 'Capacity', 'capacityText': 'Spacious hall designed for comfortable accommodation of up to 30 people for productive work and effective interaction',
+        'techTitle': 'Technologies', 'techText': 'Modern equipment, high-speed Wi-Fi, video conferencing system and professional audio system',
+        'comfortTitle': 'Comfort', 'comfortText': 'Ergonomic furniture, climate control, coffee breaks organization and everything necessary for productive work',
+        'equipmentTitle': 'Hall Equipment', 'multimediaTitle': 'Multimedia', 'multimediaText': '65" TV, screen, flipchart, interactive whiteboard',
+        'audioTitle': 'Audio System', 'audioText': 'Professional microphones, acoustic system, video conferencing system',
+        'furnitureTitle': 'Furniture', 'furnitureText': 'Ergonomic chairs, transformable tables, comfortable rest areas',
+        'serviceTitle': 'Service', 'serviceText': 'Premium coffee breaks, business lunches (450 rub), top-level banquet service',
+        'pricingTitle': 'Rental Cost', 'basicTariff': 'Basic Tariff', 'perHour': 'per hour',
+        'feature1': 'Hall rental up to 4 hours', 'feature2': 'Basic equipment and Wi-Fi', 'feature3': 'Drinking water and technical support',
+        'feature4': 'Air conditioning and heating', 'feature5': 'Professional lighting', 'bookNowBtn': 'Book Now', 'galleryTitle': 'Hall Gallery',
+        'navHome': 'Home', 'navAbout': 'About', 'navBooking': 'Booking', 'navContacts': 'Contacts', 'navProfile': 'Profile',
+        'login': 'Login', 'register': 'Sign up', 'officialSiteLink': 'Go to the official website of Hotel "Altai"',
+        'copyright': '© 2026 "GostAlt" LLC. All rights reserved.', 'footerAddress': 'Barnaul, Lenina Ave 24 / Anatoliya St 83'
+      },
+      'zh': {
+        'hotel_prefix': '酒店', 'hotel_name': '「阿尔泰」', 'pageTitle': '"阿尔泰"会议厅', 'heroSubtitle': '位于巴尔瑙尔市中心的现代化活动空间',
+        'quote1': '"我们为您的重要会议和活动创造理想条件。每一处细节都为您舒适与成功而设计。"',
+        'quote2': '"您的活动值得完美的空间。我们创造诞生伟大想法和达成重要交易的条件。"',
+        'aboutHall': '关于我们的会议厅', 'capacityTitle': '容量', 'capacityText': '宽敞的厅堂设计可舒适容纳多达30人，适合高效工作和有效互动',
+        'techTitle': '技术设备', 'techText': '现代化设备、高速Wi-Fi、视频会议系统和专业音响系统',
+        'comfortTitle': '舒适度', 'comfortText': '符合人体工学的家具、空调系统、咖啡休息安排以及高效工作所需的一切',
+        'equipmentTitle': '厅堂设备', 'multimediaTitle': '多媒体', 'multimediaText': '65英寸电视、屏幕、挂图板、互动白板',
+        'audioTitle': '音响系统', 'audioText': '专业麦克风、音响系统、视频会议系统',
+        'furnitureTitle': '家具', 'furnitureText': '符合人体工学的椅子、可变形桌子、舒适的休息区',
+        'serviceTitle': '服务', 'serviceText': '高级咖啡休息、商务午餐(450卢布)、顶级宴会服务',
+        'pricingTitle': '租赁费用', 'basicTariff': '基础套餐', 'perHour': '每小时',
+        'feature1': '厅堂租赁最多4小时', 'feature2': '基础设备和Wi-Fi', 'feature3': '饮用水和技术支持',
+        'feature4': '空调和供暖', 'feature5': '专业照明', 'bookNowBtn': '立即预订', 'galleryTitle': '厅堂画廊',
+        'navHome': '首页', 'navAbout': '关于', 'navBooking': '预订', 'navContacts': '联系方式', 'navProfile': '个人中心',
+        'login': '登录', 'register': '注册', 'officialSiteLink': '前往“阿尔泰”酒店官方网站',
+        'copyright': '© 2026 “GostAlt”有限责任公司。保留所有权利。', 'footerAddress': '巴尔瑙尔市，列宁大街24号 / 阿纳托利街83号'
+      }
+    };
+
+    function changeLanguage(lang) {
+      localStorage.setItem('preferredLanguage', lang);
+      var t = translations[lang];
+      if (!t) return;
+      document.title = t.pageTitle + ' - Гостиница Алтай';
+      var elements = document.querySelectorAll('[data-lang-key]');
+      for (var i = 0; i < elements.length; i++) {
+        var el = elements[i];
+        var key = el.getAttribute('data-lang-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = t[key];
+          else el.innerText = t[key];
+        }
+      }
+    }
+
+    var langSelect = document.getElementById('languageSelect');
+    if (langSelect) {
+      langSelect.addEventListener('change', function(e) { changeLanguage(e.target.value); });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('preferredLanguage') || 'ru';
+      var selectEl = document.getElementById('languageSelect');
+      if (selectEl) selectEl.value = saved;
+      changeLanguage(saved);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет - Гостиница «Алтай»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #B29559; --dark-gold: #8a7546; --light-gold: #e8ddc3;
+      --dark: #222; --light: #f5f5f5; --white: #fff; --gray: #555;
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(135deg, var(--light-gold), var(--white));
+      min-height: 100vh;
+    }
+    .site-logo {
+      position: fixed; top: 18px; left: 25px; z-index: 2001;
+      cursor: pointer; transition: var(--transition);
+    }
+    .logo-text {
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+      padding: 8px 24px; border-radius: 50px;
+      display: flex; flex-direction: column; align-items: center;
+      border-left: 3px solid var(--gold); border-right: 3px solid var(--gold);
+    }
+    .logo-altai {
+      font-size: 28px; font-weight: 700; letter-spacing: 4px;
+      color: var(--gold); font-family: 'Cormorant Garamond', serif;
+    }
+    .logo-hotel {
+      font-size: 12px; letter-spacing: 3px; color: #eee;
+      font-family: 'Cormorant Garamond', serif; text-transform: uppercase;
+    }
+    .navbar {
+      background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed; width: 100%; top: 0; z-index: 1000; padding: 8px 0;
+    }
+    .nav-container {
+      max-width: 1300px; margin: 0 auto; padding: 0 25px;
+      display: flex; justify-content: flex-end; align-items: center;
+      min-height: 70px; gap: 20px; flex-wrap: wrap;
+    }
+    .nav-menu { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .nav-link {
+      text-decoration: none; color: var(--dark); font-weight: 500;
+      padding: 0.5rem 1rem; border-radius: 40px; transition: var(--transition);
+      font-size: 1.05em; font-family: 'Cormorant Garamond', serif;
+    }
+    .nav-link:hover, .nav-link.active { background: var(--gold); color: var(--white); }
+    .auth-link {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white !important; border-radius: 40px; padding: 0.5rem 1.2rem; font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .admin-link {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white !important; border-radius: 40px; padding: 0.5rem 1.2rem; font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .lang-switcher { position: relative; }
+    .lang-select {
+      padding: 8px 30px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      background: var(--white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      min-width: 110px;
+    }
+    .main-container { max-width: 1200px; margin: 100px auto 60px; padding: 0 20px; }
+    .personal-card {
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden;
+    }
+    .personal-header {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white; padding: 25px; text-align: center;
+    }
+    .avatar {
+      width: 70px; height: 70px; background: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px; font-size: 35px; color: var(--gold);
+    }
+    .personal-header h2 { font-size: 1.3em; margin-bottom: 5px; font-family: 'Cormorant Garamond', serif; }
+    .personal-body { padding: 25px; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--light-gold); flex-wrap: wrap; }
+    .tab {
+      padding: 8px 18px; cursor: pointer; background: none; border: none;
+      font-weight: 600; color: var(--gray); border-radius: 30px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .tab:hover { color: var(--gold); background: var(--light-gold); }
+    .tab.active { color: var(--gold); background: var(--light-gold); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .booking-card {
+      background: var(--light); border-radius: 15px; padding: 15px;
+      margin-bottom: 15px; border-left: 4px solid var(--gold);
+    }
+    .booking-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+    }
+    .booking-card-header h4 { margin: 0; font-size: 1.1em; font-family: 'Cormorant Garamond', serif; }
+    .booking-info { font-size: 0.85em; color: var(--gray); line-height: 1.5; font-family: 'Cormorant Garamond', serif; }
+    .status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 30px;
+      font-size: 10px; font-weight: 600;
+    }
+    .status-pending { background: #ffc107; color: #333; }
+    .status-confirmed { background: #28a745; color: white; }
+    .status-cancelled { background: #dc3545; color: white; }
+    .btn-cancel {
+      background: #dc3545; color: white; border: none;
+      padding: 5px 12px; border-radius: 30px; cursor: pointer; font-size: 0.8em; margin-top: 8px;
+    }
+    .profile-form input {
+      width: 100%; padding: 10px 15px; border: 2px solid var(--light-gold);
+      border-radius: 12px; margin-bottom: 15px; font-family: 'Cormorant Garamond', serif;
+    }
+    .profile-form input:focus { border-color: var(--gold); outline: none; }
+    .btn-save {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white; border: none; padding: 10px 25px; border-radius: 40px;
+      cursor: pointer; font-weight: 600;
+    }
+    .empty-state { text-align: center; padding: 40px; color: var(--gray); }
+    .empty-state i { font-size: 45px; color: var(--gold); margin-bottom: 12px; display: block; }
+    .btn-book {
+      display: inline-block; background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white; padding: 8px 22px; border-radius: 40px;
+      text-decoration: none; margin-top: 12px; font-size: 0.9em;
+    }
+    .logout-btn {
+      background: linear-gradient(135deg, #dc3545, #c82333); color: white;
+      border: none; padding: 10px 20px; border-radius: 40px;
+      font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%;
+    }
+    footer {
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
+      padding: 2rem 1rem 1.5rem; margin-top: 3rem; color: #eee;
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .footer-contacts { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin: 0.5rem 0; font-size: 0.85rem; }
+    .footer-contact-item i { color: var(--gold); margin-right: 6px; }
+    .official-site-link {
+      background: var(--gold); display: inline-block; padding: 6px 18px;
+      border-radius: 40px; color: white; text-decoration: none; font-size: 0.8rem;
+    }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem;
+    }
+    .developer { color: var(--gold); }
+    @media (max-width: 768px) {
+      .nav-container { justify-content: space-between; }
+      .nav-menu { flex-direction: column; background: white; padding: 1rem; border-radius: 20px; margin-top: 0.5rem; width: 100%; }
+      .personal-body { padding: 20px; }
+      .booking-card-header { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.5rem; }
+    }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gold); }
+    @media (max-width: 768px) { .mobile-menu-btn { display: block; } }
+    .toast-notify {
+      position: fixed; top: 100px; right: 20px; background: #28a745; color: white;
+      padding: 10px 20px; border-radius: 50px; z-index: 9999;
+      font-family: 'Cormorant Garamond', serif; font-size: 13px;
+      animation: slideIn 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .toast-notify.error { background: #dc3545; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="site-logo" onclick="location.href='/'">
+    <div class="logo-text">
+      <span class="logo-altai">ALTAI</span>
+      <span class="logo-hotel">HOTEL</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="nav-container">
+      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-menu">
+          <a href="/" class="nav-link" data-lang-key="navHome">Главная</a>
+          <a href="/about" class="nav-link" data-lang-key="navAbout">О нас</a>
+          <a href="/booking" class="nav-link" data-lang-key="navBooking">Бронирование</a>
+          <a href="/contacts" class="nav-link" data-lang-key="navContacts">Контакты</a>
+          <a href="/personal" class="nav-link active" data-lang-key="navProfile">Личный кабинет</a>
+          <a href="/login" class="nav-link auth-link" data-lang-key="login">Вход</a>
+          <a href="/register" class="nav-link auth-link" data-lang-key="register">Регистрация</a>
+          <a href="/admin" class="nav-link admin-link" id="adminLink" style="display: none;" data-lang-key="adminPanel">Панель админа</a>
+          <div class="lang-switcher">
+            <select class="lang-select" id="languageSelect">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container" id="app">
+    <div style="text-align: center; padding: 50px;"><i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--gold);"></i> <span data-lang-key="loading">Загрузка...</span></div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-contacts">
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+78007003650">+7-800-700-36-50</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@hotel-altai22.ru">info@hotel-altai22.ru</a></div>
+      </div>
+      <a href="https://hotel-altai22.ru/" target="_blank" class="official-site-link" data-lang-key="officialSiteLink">Официальный сайт</a>
+      <div class="footer-bottom">
+        <span data-lang-key="copyright">© 2026 ООО "ГостАлт". Все права защищены.</span>
+        <span class="developer" data-lang-key="developer">Разработчик: Еграшина Валерия</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let userProfile = null;
+    let userBookings = [];
+    let currentLang = 'ru';
+
+    const translations = {
+      ru: {
+        navHome: "Главная", navAbout: "О нас", navBooking: "Бронирование", navContacts: "Контакты",
+        navProfile: "Личный кабинет", login: "Вход", register: "Регистрация", adminPanel: "Панель админа",
+        officialSiteLink: "Перейти на официальный сайт гостиницы «Алтай»",
+        copyright: "© 2026 ООО \"ГостАлт\". Все права защищены.",
+        developer: "Разработчик: Еграшина Валерия",
+        footerAddress: "г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83",
+        loading: "Загрузка...",
+        authRequired: "Требуется авторизация",
+        authMessage: "Войдите, чтобы просмотреть личный кабинет",
+        loginButton: "Перейти к входу",
+        noAccount: "Нет аккаунта?",
+        registerLink: "Зарегистрироваться",
+        myBookings: "Мои бронирования",
+        profileSettings: "Настройки профиля",
+        nameLabel: "Имя",
+        phoneLabel: "Телефон",
+        emailLabel: "Email (нельзя изменить)",
+        newPasswordLabel: "Новый пароль (оставьте пустым, чтобы не менять)",
+        saveButton: "Сохранить",
+        logoutButton: "Выйти",
+        noBookings: "У вас пока нет бронирований",
+        bookHall: "Забронировать зал",
+        cancelBooking: "Отменить",
+        passwordMin: "Пароль должен быть минимум 6 символов",
+        profileUpdated: "Профиль обновлён!",
+        errorUpdate: "Ошибка обновления",
+        bookingCancelled: "Бронирование отменено",
+        errorCancel: "Ошибка отмены"
+      },
+      en: {
+        navHome: "Home", navAbout: "About", navBooking: "Booking", navContacts: "Contacts",
+        navProfile: "Profile", login: "Login", register: "Register", adminPanel: "Admin Panel",
+        officialSiteLink: "Go to official website of Hotel Altai",
+        copyright: "© 2026 LLC \"GostAlt\". All rights reserved.",
+        developer: "Developer: Valeria Egrashina",
+        footerAddress: "Barnaul, Lenin Ave. 24 / Anatolia St. 83",
+        loading: "Loading...",
+        authRequired: "Authorization required",
+        authMessage: "Please login to view your profile",
+        loginButton: "Go to login",
+        noAccount: "Don't have an account?",
+        registerLink: "Register",
+        myBookings: "My Bookings",
+        profileSettings: "Profile Settings",
+        nameLabel: "Name",
+        phoneLabel: "Phone",
+        emailLabel: "Email (cannot be changed)",
+        newPasswordLabel: "New password (leave empty to keep current)",
+        saveButton: "Save",
+        logoutButton: "Logout",
+        noBookings: "You have no bookings yet",
+        bookHall: "Book Hall",
+        cancelBooking: "Cancel",
+        passwordMin: "Password must be at least 6 characters",
+        profileUpdated: "Profile updated!",
+        errorUpdate: "Update error",
+        bookingCancelled: "Booking cancelled",
+        errorCancel: "Cancel error"
+      },
+      zh: {
+        navHome: "首页", navAbout: "关于", navBooking: "预订", navContacts: "联系方式",
+        navProfile: "个人中心", login: "登录", register: "注册", adminPanel: "管理面板",
+        officialSiteLink: "前往阿尔泰酒店官方网站",
+        copyright: "© 2026 戈斯特阿尔特有限责任公司。版权所有。",
+        developer: "开发者: 瓦莱里娅·叶格拉希娜",
+        footerAddress: "巴尔瑙尔市，列宁大道24号/阿纳托利亚街83号",
+        loading: "加载中...",
+        authRequired: "需要授权",
+        authMessage: "请登录查看您的个人资料",
+        loginButton: "前往登录",
+        noAccount: "没有账户？",
+        registerLink: "注册",
+        myBookings: "我的预订",
+        profileSettings: "个人资料设置",
+        nameLabel: "姓名",
+        phoneLabel: "电话",
+        emailLabel: "邮箱（不能更改）",
+        newPasswordLabel: "新密码（留空则保持不变）",
+        saveButton: "保存",
+        logoutButton: "退出",
+        noBookings: "您还没有预订",
+        bookHall: "预订大厅",
+        cancelBooking: "取消",
+        passwordMin: "密码至少需要6个字符",
+        profileUpdated: "个人资料已更新！",
+        errorUpdate: "更新错误",
+        bookingCancelled: "预订已取消",
+        errorCancel: "取消错误"
+      }
+    };
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      const t = translations[lang];
+      if (!t) return;
+      
+      const elements = document.querySelectorAll('[data-lang-key]');
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i];
+        const key = el.getAttribute('data-lang-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            if (el.placeholder !== undefined) el.placeholder = t[key];
+          } else {
+            el.innerText = t[key];
+          }
+        }
+      }
+    }
+
+    function showNotify(message, isError = false) {
+      const n = document.createElement('div');
+      n.className = 'toast-notify' + (isError ? ' error' : '');
+      n.textContent = message;
+      document.body.appendChild(n);
+      setTimeout(() => { n.style.opacity = '0'; setTimeout(() => n.remove(), 300); }, 2700);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    async function loadUserProfile() {
+      try {
+        const resp = await fetch('/api/user/profile', { credentials: 'include' });
+        if (resp.status === 401) return null;
+        return await resp.json();
+      } catch(e) {
+        return null;
+      }
+    }
+
+    async function loadUserBookings() {
+      try {
+        const resp = await fetch('/api/user/bookings', { credentials: 'include' });
+        if (resp.ok) return await resp.json();
+        return [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    async function renderPersonalCabinet() {
+      const app = document.getElementById('app');
+      const t = translations[currentLang];
+      
+      userProfile = await loadUserProfile();
+      
+      if (!userProfile) {
+        app.innerHTML = `
+          <div class="personal-card">
+            <div class="personal-header">
+              <div class="avatar"><i class="fas fa-lock"></i></div>
+              <h2>${t.authRequired}</h2>
+              <p>${t.authMessage}</p>
+            </div>
+            <div class="login-prompt" style="text-align: center; padding: 40px;">
+              <i class="fas fa-sign-in-alt" style="font-size: 50px; color: var(--gold); margin-bottom: 15px; display: block;"></i>
+              <h3>${t.loginButton}</h3>
+              <a href="/login" style="display: inline-block; background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: white; padding: 10px 30px; border-radius: 40px; text-decoration: none; margin-top: 15px;">${t.loginButton}</a>
+              <p style="margin-top:15px">${t.noAccount} <a href="/register" style="color:var(--gold)">${t.registerLink}</a></p>
+            </div>
+          </div>`;
+        return;
+      }
+      
+      const adminLink = document.getElementById('adminLink');
+      if (adminLink && userProfile.is_admin) {
+        adminLink.style.display = 'block';
+      }
+      
+      userBookings = await loadUserBookings();
+      
+      let bookingsHtml = '';
+      if (userBookings.length === 0) {
+        bookingsHtml = `
+          <div class="empty-state">
+            <i class="fas fa-calendar-times"></i>
+            <h3>${t.noBookings}</h3>
+            <p>${t.bookHall}</p>
+            <a href="/booking" class="btn-book" id="bookNowBtn">${t.bookHall}</a>
+          </div>`;
+      } else {
+        userBookings.forEach(b => {
+          const status = {
+            pending: {cls:'status-pending', txt:'⏳ На рассмотрении'},
+            confirmed: {cls:'status-confirmed', txt:'✅ Подтверждено'},
+            cancelled: {cls:'status-cancelled', txt:'❌ Отменено'}
+          }[b.status] || {cls:'', txt:b.status};
+          const dateFmt = b.date.split('-').reverse().join('.');
+          bookingsHtml += `
+            <div class="booking-card">
+              <div class="booking-card-header">
+                <h4>${escapeHtml(b.event_name)}</h4>
+                <span class="status-badge ${status.cls}">${status.txt}</span>
+              </div>
+              <div class="booking-info">
+                📅 ${dateFmt} | 🕐 ${b.time} | ⏱️ ${b.duration} ч<br>
+                👥 ${b.attendees} чел | 💰 ${b.total_price.toLocaleString('ru-RU')} ₽
+                ${b.coffee_break ? '<br>☕ Кофе-брейк' : ''}
+                ${b.business_lunch ? '<br>🍽️ Бизнес-ланч' : ''}
+              </div>
+              ${b.comments ? `<div class="booking-info" style="margin-top:6px">📝 ${escapeHtml(b.comments)}</div>`:''}
+              ${b.status === 'pending' ? `<button class="btn-cancel" onclick="cancelBooking(${b.id})"><i class="fas fa-times"></i> ${t.cancelBooking}</button>`:''}
+            </div>`;
+        });
+      }
+      
+      app.innerHTML = `
+        <div class="personal-card">
+          <div class="personal-header">
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <h2>${escapeHtml(userProfile.name)}</h2>
+            <p>${escapeHtml(userProfile.email)} | ${escapeHtml(userProfile.phone)}</p>
+          </div>
+          <div class="personal-body">
+            <div class="tabs">
+              <button class="tab active" onclick="switchTab('bookings',this)">📅 ${t.myBookings}</button>
+              <button class="tab" onclick="switchTab('profile',this)">⚙️ ${t.profileSettings}</button>
+            </div>
+            <div id="bookingsTab" class="tab-content active">
+              <h3 style="margin-bottom:15px;font-size:1.2em">${t.myBookings}</h3>
+              ${bookingsHtml}
+            </div>
+            <div id="profileTab" class="tab-content">
+              <h3 style="margin-bottom:15px;font-size:1.2em">${t.profileSettings}</h3>
+              <div id="flashMessages"></div>
+              <form class="profile-form" onsubmit="event.preventDefault();handleProfileSubmit()">
+                <label>${t.nameLabel}</label>
+                <input type="text" id="profileName" value="${escapeHtml(userProfile.name)}" required>
+                <label>${t.phoneLabel}</label>
+                <input type="text" id="profilePhone" value="${escapeHtml(userProfile.phone)}" required>
+                <label>${t.emailLabel}</label>
+                <input type="email" id="profileEmail" value="${escapeHtml(userProfile.email)}" disabled style="background: #f0f0f0;">
+                <label>${t.newPasswordLabel}</label>
+                <input type="password" id="newPassword" placeholder="••••••">
+                <button type="submit" class="btn-save"><i class="fas fa-save"></i> ${t.saveButton}</button>
+              </form>
+            </div>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> ${t.logoutButton}</button>
+          </div>
+        </div>`;
+        
+      localStorage.setItem('userName', userProfile.name);
+      localStorage.setItem('userPhone', userProfile.phone);
+      localStorage.setItem('userEmail', userProfile.email);
+    }
+
+    async function cancelBooking(bookingId) {
+      const t = translations[currentLang];
+      if (!confirm(t.cancelBooking + '?')) return;
+      try {
+        const resp = await fetch(`/delete_booking/${bookingId}`, { method: 'POST', credentials: 'include' });
+        if (resp.ok) {
+          showNotify(t.bookingCancelled, false);
+          renderPersonalCabinet();
+        } else {
+          showNotify(t.errorCancel, true);
+        }
+      } catch(e) {
+        showNotify(t.errorCancel, true);
+      }
+    }
+
+    async function handleProfileSubmit() {
+      const t = translations[currentLang];
+      const name = document.getElementById('profileName').value;
+      const phone = document.getElementById('profilePhone').value;
+      const newPassword = document.getElementById('newPassword').value;
+      
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phone', phone);
+      if (newPassword) {
+        if (newPassword.length < 6) {
+          showNotify(t.passwordMin, true);
+          return;
+        }
+        formData.append('new_password', newPassword);
+      }
+      
+      try {
+        const resp = await fetch('/profile/update', { method: 'POST', body: formData, credentials: 'include' });
+        if (resp.ok) {
+          showNotify(t.profileUpdated, false);
+          renderPersonalCabinet();
+        } else {
+          showNotify(t.errorUpdate, true);
+        }
+      } catch(e) {
+        showNotify(t.errorUpdate, true);
+      }
+    }
+
+    async function logout() {
+      const t = translations[currentLang];
+      if (confirm(t.logoutButton + '?')) {
+        await fetch('/logout', { credentials: 'include' });
+        window.location.href = '/';
+      }
+    }
+
+    function switchTab(tabName, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabName + 'Tab').classList.add('active');
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    window.cancelBooking = cancelBooking;
+    window.logout = logout;
+    window.switchTab = switchTab;
+    window.handleProfileSubmit = handleProfileSubmit;
+
+    const langSelect = document.getElementById('languageSelect');
+    if (langSelect) {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+      langSelect.value = savedLang;
+      changeLanguage(savedLang);
+      langSelect.addEventListener('change', (e) => {
+        changeLanguage(e.target.value);
+        renderPersonalCabinet();
+      });
+    }
+
+    renderPersonalCabinet();
+  </script>
+</body>
+</html>

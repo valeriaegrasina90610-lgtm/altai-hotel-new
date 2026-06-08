@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Cormorant Garamond', 'Roboto', serif; 
+    line-height: 1.6; 
+    background-color: #f5f5f5; 
+    color: #333;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* ✅ Логотип: увеличен, убраны чёрные поля */
+.logo-img {
+    height: 45px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    transition: all 0.3s ease;
+    background: transparent !important;
+    border: none !important;
+}
+.hotel-title-top .logo-img:hover { transform: scale(1.05); }
+@media (max-width: 768px) { .logo-img { height: 32px; } }
+
+.fade-in { opacity: 0; transform: translateY(25px); transition: all 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; }

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title id="pageTitle">Бронирование - Конференц-зал «Алтай»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #B29559;
+      --dark-gold: #8a7546;
+      --light-gold: #e8ddc3;
+      --dark: #222;
+      --light: #f5f5f5;
+      --white: #fff;
+      --gray: #555;
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* --- СТИЛЬНЫЙ ТЕКСТОВЫЙ ЛОГОТИП ALTAI HOTEL --- */
+    .site-logo {
+      position: fixed;
+      top: 18px;
+      left: 25px;
+      z-index: 2001;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .logo-text {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      padding: 8px 24px;
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-left: 3px solid var(--gold);
+      border-right: 3px solid var(--gold);
+      transition: var(--transition);
+    }
+    .logo-text:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.02);
+      border-left-color: var(--dark-gold);
+      border-right-color: var(--dark-gold);
+    }
+    .logo-altai {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .logo-hotel {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #eee;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .site-logo { top: 12px; left: 15px; }
+      .logo-text { padding: 5px 16px; }
+      .logo-altai { font-size: 20px; letter-spacing: 3px; }
+      .logo-hotel { font-size: 9px; letter-spacing: 2px; }
+    }
+    @media (max-width: 480px) {
+      .logo-text { padding: 4px 12px; }
+      .logo-altai { font-size: 16px; letter-spacing: 2px; }
+      .logo-hotel { font-size: 7px; letter-spacing: 1.5px; }
+    }
+
+    /* Навигация */
+    .navbar {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 10px 0;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 70px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      transition: var(--transition);
+      font-size: 1.05em;
+      white-space: nowrap;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .auth-link {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white !important;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(178,149,89,0.3);
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.3);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .auth-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(178,149,89,0.5);
+      background: var(--dark-gold);
+      color: white;
+    }
+    .lang-switcher { position: relative; }
+    .lang-select {
+      padding: 8px 30px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      background: var(--white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      transition: var(--transition);
+      min-width: 110px;
+    }
+
+    /* Кнопка наверх */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gold);
+      color: var(--white);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: none;
+      font-size: 1.2em;
+    }
+    .scroll-to-top:hover { background: var(--dark-gold); transform: translateY(-3px) scale(1.1); }
+
+    /* Контент */
+    .content-section { max-width: 1200px; margin: 100px auto 60px; padding: 0 20px; }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--dark);
+      position: relative;
+      font-weight: 600;
+    }
+    .section-title:after {
+      content: ''; display: block; width: 120px; height: 4px;
+      background: var(--gold); margin: 20px auto; border-radius: 2px;
+    }
+    @media (max-width: 768px) { .section-title { font-size: 2.2em; } }
+
+    .booking-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('/static/images/бронь.jpg');
+      background-size: cover; background-position: center; background-attachment: fixed;
+      padding: 6rem 2rem; text-align: center; color: var(--white);
+      border-radius: 20px; margin-bottom: 4rem; position: relative; overflow: hidden;
+    }
+    .booking-hero::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    .booking-hero h1 { font-size: 3.5em; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); font-family: 'Cormorant Garamond', serif; }
+    @media (max-width: 768px) { .booking-hero h1 { font-size: 2.5em; } }
+    .booking-hero p { font-size: 1.4em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    .booking-container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    @media (max-width: 768px) { .booking-container { grid-template-columns: 1fr; } }
+
+    .booking-form {
+      background: var(--white); border-radius: 20px; padding: 3rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1); position: relative; overflow: hidden;
+    }
+    .booking-form::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .form-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 2px solid var(--light-gold); }
+    .form-section:last-child { border-bottom: none; }
+    .form-section h3 {
+      font-family: 'Cormorant Garamond', serif; margin-bottom: 1.5rem; color: var(--dark);
+      font-size: 1.5em; font-weight: 600; position: relative; padding-left: 1.5rem;
+    }
+    .form-section h3::before {
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 8px; height: 8px; background: var(--gold); border-radius: 50%;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+      display: block; margin-bottom: 0.8rem; font-weight: 600; color: var(--dark);
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1em;
+    }
+    .form-control {
+      width: 100%; padding: 15px 20px; border: 2px solid var(--light-gold); border-radius: 10px;
+      font-size: 1.1em; transition: var(--transition); font-family: 'Cormorant Garamond', serif; background: var(--light);
+    }
+    .form-control:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px rgba(178, 149, 89, 0.1); background: var(--white); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: var(--white); border: none;
+      padding: 18px 35px; border-radius: 50px; font-size: 1.2em; cursor: pointer;
+      transition: var(--transition); width: 100%; font-weight: 600;
+      box-shadow: 0 8px 25px rgba(178, 149, 89, 0.4); font-family: 'Cormorant Garamond', serif;
+      position: relative; overflow: hidden; display: inline-block; text-align: center;
+    }
+    .btn-submit::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: var(--transition);
+    }
+    .btn-submit:hover::before { left: 100%; }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(178, 149, 89, 0.6); }
+
+    .booking-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+    .sidebar-card {
+      background: var(--white); border-radius: 15px; padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .sidebar-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--gold); transform: scaleX(0); transition: var(--transition);
+    }
+    .sidebar-card:hover::before { transform: scaleX(1); }
+    .sidebar-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+    .sidebar-card h3 {
+      font-family: 'Cormorant Garamond', serif; margin-bottom: 1.5rem;
+      color: var(--dark); font-size: 1.4em; font-weight: 600;
+    }
+    .info-item {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+      padding: 0.8rem; border-radius: 8px; transition: var(--transition);
+    }
+    .info-item:hover { background: var(--light-gold); transform: translateX(5px); }
+    .info-item i { color: var(--gold); font-size: 1.3em; min-width: 25px; text-align: center; }
+
+    .total-summary {
+      background: linear-gradient(135deg, var(--light-gold), var(--white));
+      border-radius: 15px; padding: 2.5rem; margin: 2rem 0;
+      border-left: 5px solid var(--gold); transition: var(--transition); box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .total-summary:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,0.15); }
+    .total-row { display: flex; justify-content: space-between; margin-bottom: 1rem; padding: 0.8rem 0; border-bottom: 1px solid rgba(178, 149, 89, 0.3); font-size: 1.1em; font-family: 'Cormorant Garamond', serif; }
+    .total-final { display: flex; justify-content: space-between; font-size: 1.5em; font-weight: bold; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 3px solid var(--gold); color: var(--dark); font-family: 'Cormorant Garamond', serif; }
+
+    .checkbox-group {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+      padding: 1rem; border-radius: 8px; transition: var(--transition); cursor: pointer;
+    }
+    .checkbox-group:hover { background: var(--light-gold); }
+    .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--gold); transform: scale(1.2); }
+    .checkbox-group label { margin: 0; font-weight: 500; cursor: pointer; font-family: 'Cormorant Garamond', serif; }
+
+    .quote-section {
+      background: linear-gradient(135deg, var(--light-gold), var(--white)); padding: 4rem 2rem;
+      border-radius: 20px; margin: 4rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .quote-section::before {
+      content: '"'; position: absolute; top: 20px; left: 40px; font-size: 8em;
+      color: var(--gold); opacity: 0.2; font-family: serif;
+    }
+    .quote-text {
+      font-size: 1.6em; font-style: italic; color: var(--dark); margin-bottom: 1.5rem;
+      position: relative; z-index: 1; line-height: 1.6;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a); padding: 3rem 1rem 2rem;
+      margin-top: 6rem; color: #eee; position: relative;
+    }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .footer-contacts { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; }
+    .footer-contact-item { display: flex; align-items: center; gap: 0.8rem; }
+    .footer-contact-item i { color: var(--gold); }
+    .footer-contact-item a, .footer-contact-item span { color: #ddd; text-decoration: none; transition: var(--transition); }
+    .footer-contact-item a:hover { color: var(--gold); }
+    .official-site-link {
+      background: var(--gold); display: inline-block; width: fit-content; margin: 0 auto;
+      padding: 10px 24px; border-radius: 40px; color: white; text-decoration: none;
+      font-weight: 600; transition: 0.2s;
+    }
+    .official-site-link:hover { background: var(--dark-gold); transform: scale(1.02); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+      margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.2rem; font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.7rem; }
+      .footer-contacts { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+    .developer { font-style: italic; color: var(--gold); }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--gold); cursor: pointer; }
+    .bar { width: 25px; height: 3px; background: var(--dark); margin: 3px 0; transition: var(--transition); }
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      .nav-container { justify-content: space-between; }
+      .navbar-collapse { background: var(--white); padding: 1rem; border-radius: 10px; margin-top: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+      .nav-menu { flex-direction: column; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- СТИЛЬНЫЙ ТЕКСТОВЫЙ ЛОГОТИП ALTAI HOTEL -->
+  <div class="site-logo" onclick="location.href='/'">
+    <div class="logo-text">
+      <span class="logo-altai">ALTAI</span>
+      <span class="logo-hotel">HOTEL</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="nav-container">
+      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-menu">
+          <a href="/" class="nav-link" data-lang-key="navHome">Главная</a>
+          <a href="/about" class="nav-link" data-lang-key="navAbout">О нас</a>
+          <a href="/booking" class="nav-link active" data-lang-key="navBooking">Бронирование</a>
+          <a href="/contacts" class="nav-link" data-lang-key="navContacts">Контакты</a>
+          <a href="/personal" class="nav-link" data-lang-key="navProfile">Личный кабинет</a>
+          <a href="/login" class="nav-link auth-link" data-lang-key="login">Вход</a>
+          <a href="/register" class="nav-link auth-link" data-lang-key="register">Регистрация</a>
+          <div class="lang-switcher">
+            <select class="lang-select" id="languageSelect">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <button class="scroll-to-top" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+
+  <div class="content-section">
+    <div class="booking-hero fade-in">
+      <h1 id="pageTitleHero" data-lang-key="pageTitleHero">Бронирование зала</h1>
+      <p id="heroSubtitle" data-lang-key="heroSubtitle">Забронируйте конференц-зал для вашего мероприятия прямо сейчас</p>
+    </div>
+
+    <div class="quote-section fade-in">
+      <p class="quote-text" id="quote1" data-lang-key="quote1">"Мы создаем идеальные условия для ваших важных встреч и мероприятий. Каждая деталь продумана для вашего комфорта и успеха."</p>
+    </div>
+
+    <div class="booking-container">
+      <div class="booking-form fade-in">
+        <form id="reservation-form" method="POST" action="/booking">
+          <div class="form-section">
+            <h3 data-lang-key="personalInfo">Личная информация</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" data-lang-key="nameLabel">Ваше имя *</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="phone" data-lang-key="phoneLabel">Телефон *</label>
+                <input type="tel" id="phone" name="phone" class="form-control" required pattern="^\+7\s?\(?\d{3}\)?\s?\d{3}\s?\d{2}\s?\d{2}$" maxlength="18" placeholder="+7 (999) 999-99-99">
+                <small style="color: var(--gray); font-size: 0.9em;" data-lang-key="phoneHint">Формат: +7 (999) 999-99-99</small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email" data-lang-key="emailLabel">Email *</label>
+                <input type="email" id="email" name="email" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <small style="color: var(--gray); font-size: 0.9em;" data-lang-key="emailHint">Формат: example@mail.ru</small>
+              </div>
+              <div class="form-group">
+                <label for="company" data-lang-key="companyLabel">Компания</label>
+                <input type="text" id="company" name="company" class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3 data-lang-key="eventDetails">Детали мероприятия</h3>
+            <div class="form-group">
+              <label for="event_name" data-lang-key="eventNameLabel">Название мероприятия *</label>
+              <input type="text" id="event_name" name="event_name" class="form-control" required placeholder="Например: Конференция, Тренинг, День рождения">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date" data-lang-key="dateLabel">Дата мероприятия *</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="time" data-lang-key="timeLabel">Время *</label>
+                <select id="time" name="time" class="form-control" required onchange="checkTimeAvailability()">
+                  <!-- Опции времени будут заполнены через JS -->
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="duration" data-lang-key="durationLabel">Продолжительность (часов) *</label>
+                <select id="duration" name="duration" class="form-control" required onchange="checkTimeAvailability(); calculateTotal()">
+                  <option value="1">1 час</option>
+                  <option value="2">2 часа</option>
+                  <option value="3">3 часа</option>
+                  <option value="4">4 часа</option>
+                  <option value="5">5 часов</option>
+                  <option value="6">6 часов</option>
+                  <option value="7">7 часов</option>
+                  <option value="8">8 часов</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="attendees" data-lang-key="attendeesLabel">Количество участников *</label>
+                <input type="number" id="attendees" name="attendees" class="form-control" min="1" max="30" value="1" required onchange="calculateTotal()">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3 data-lang-key="additionalServices">Дополнительные услуги</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="coffee_break" name="coffee_break" onchange="calculateTotal()">
+                  <label for="coffee_break" data-lang-key="coffeeLabel">Кофе-брейк (+500 ₽/чел)</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="business_lunch" name="business_lunch" onchange="calculateTotal()">
+                  <label for="business_lunch" data-lang-key="lunchLabel">Бизнес-ланч (450 ₽/чел)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="total-summary">
+            <h3 style="margin-top: 0; color: var(--dark);" data-lang-key="totalTitle">Итоговая стоимость</h3>
+            <div class="total-row">
+              <span data-lang-key="rentalLabel">Стоимость аренды:</span>
+              <span id="rental-cost">0 ₽</span>
+            </div>
+            <div class="total-row">
+              <span data-lang-key="additionalLabel">Дополнительные услуги:</span>
+              <span id="additional-cost">0 ₽</span>
+            </div>
+            <div class="total-final">
+              <span data-lang-key="totalLabel">К ОПЛАТЕ:</span>
+              <span id="total-cost">0 ₽</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message" data-lang-key="messageLabel">Дополнительные пожелания (до 500 символов)</label>
+            <textarea id="message" name="message" class="form-control" rows="4" maxlength="500"></textarea>
+            <small style="color: var(--gray); font-size: 0.9em;" id="charCount" data-lang-key="charRemaining">Осталось символов: 500</small>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitButton" data-lang-key="submitButton">Отправить заявку</button>
+        </form>
+      </div>
+
+      <div class="booking-sidebar">
+        <div class="sidebar-card fade-in">
+          <h3 data-lang-key="contactInfo">Контактная информация</h3>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+          <div class="info-item"><i class="fas fa-phone"></i><span>+7-800-700-36-50</span></div>
+          <div class="info-item"><i class="fas fa-envelope"></i><span>info@hotel-altai22.ru</span></div>
+          <div class="info-item"><i class="fas fa-clock"></i><span data-lang-key="workTime">Круглосуточно</span></div>
+        </div>
+        <div class="sidebar-card fade-in">
+          <h3 data-lang-key="whyChooseUs">Почему выбирают нас</h3>
+          <div class="info-item"><i class="fas fa-check-circle"></i><span data-lang-key="reason1">Современное оборудование</span></div>
+          <div class="info-item"><i class="fas fa-check-circle"></i><span data-lang-key="reason2">Профессиональный сервис</span></div>
+          <div class="info-item"><i class="fas fa-check-circle"></i><span data-lang-key="reason3">Удобное расположение</span></div>
+          <div class="info-item"><i class="fas fa-check-circle"></i><span data-lang-key="reason4">Гибкие условия аренды</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-section fade-in" style="background: linear-gradient(135deg, var(--white), var(--light-gold));">
+      <p class="quote-text" id="quote2" data-lang-key="quote2">"Ваше мероприятие заслуживает идеального пространства. Мы создаем условия, где рождаются великие идеи и заключаются важные сделки."</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-contacts">
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+78007003650">+7-800-700-36-50</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@hotel-altai22.ru">info@hotel-altai22.ru</a></div>
+      </div>
+      <div style="text-align:center;">
+        <a href="https://hotel-altai22.ru/" target="_blank" class="official-site-link" data-lang-key="officialSiteLink">Перейти на официальный сайт гостиницы «Алтай»</a>
+      </div>
+      <div class="footer-bottom">
+        <span data-lang-key="copyright">© 2026 ООО "ГостАлт". Все права защищены.</span>
+        <span class="developer" data-lang-key="developer">Разработчик: Еграшина Валерия</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var HOURLY_RATE = 1400;
+    var COFFEE_BREAK_PRICE = 500;
+    var LUNCH_PRICE = 450;
+    var currentLang = 'ru';
+    
+    // Массив доступных часов (целые часы)
+    var availableHours = [];
+    for (var h = 0; h < 24; h++) {
+      var hourStr = h.toString().padStart(2, '0') + ':00';
+      availableHours.push(hourStr);
+    }
+
+    // Ключ для хранения броней в localStorage
+    var BOOKINGS_KEY = 'hall_bookings';
+
+    // Получение всех броней
+    function getBookings() {
+      var stored = localStorage.getItem(BOOKINGS_KEY);
+      if (!stored) return [];
+      try {
+        return JSON.parse(stored);
+      } catch(e) {
+        return [];
+      }
+    }
+
+    // Сохранение брони
+    function saveBooking(booking) {
+      var bookings = getBookings();
+      bookings.push(booking);
+      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+    }
+
+    // Проверка пересечения времен с учетом 30 минут на уборку
+    function isTimeSlotAvailable(date, startTime, durationHours) {
+      var bookings = getBookings();
+      // Парсим время начала
+      var startHour = parseInt(startTime.split(':')[0]);
+      var startMinute = parseInt(startTime.split(':')[1]);
+      var startTotalMinutes = startHour * 60 + startMinute;
+      var endTotalMinutes = startTotalMinutes + durationHours * 60;
+      // Учитываем 30 минут на уборку после брони
+      var cleaningEndMinutes = endTotalMinutes + 30;
+      
+      var selectedDate = new Date(date);
+      selectedDate.setHours(0, 0, 0, 0);
+      
+      for (var i = 0; i < bookings.length; i++) {
+        var b = bookings[i];
+        var bookingDate = new Date(b.date);
+        bookingDate.setHours(0, 0, 0, 0);
+        
+        if (selectedDate.getTime() === bookingDate.getTime()) {
+          var bookStartHour = parseInt(b.time.split(':')[0]);
+          var bookStartMinute = parseInt(b.time.split(':')[1]);
+          var bookStartTotal = bookStartHour * 60 + bookStartMinute;
+          var bookEndTotal = bookStartTotal + b.duration * 60;
+          var bookCleaningEnd = bookEndTotal + 30;
+          
+          // Проверяем пересечение: новая бронь не должна пересекаться с занятым временем + уборка
+          if ((startTotalMinutes < bookCleaningEnd) && (cleaningEndMinutes > bookStartTotal)) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    // Заполнение доступных времен для выбранной даты и длительности
+    function populateTimeOptions() {
+      var dateInput = document.getElementById('date');
+      var timeSelect = document.getElementById('time');
+      var durationSelect = document.getElementById('duration');
+      
+      if (!dateInput || !timeSelect || !durationSelect) return;
+      
+      var selectedDate = dateInput.value;
+      var durationHours = parseInt(durationSelect.value) || 1;
+      
+      // Очищаем select
+      timeSelect.innerHTML = '';
+      
+      if (!selectedDate) {
+        var defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Сначала выберите дату';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        timeSelect.appendChild(defaultOption);
+        return;
+      }
+      
+      var hasAvailable = false;
+      for (var i = 0; i < availableHours.length; i++) {
+        var timeValue = availableHours[i];
+        if (isTimeSlotAvailable(selectedDate, timeValue, durationHours)) {
+          var option = document.createElement('option');
+          option.value = timeValue;
+          option.textContent = timeValue;
+          timeSelect.appendChild(option);
+          hasAvailable = true;
+        }
+      }
+      
+      if (!hasAvailable) {
+        var noOption = document.createElement('option');
+        noOption.value = '';
+        noOption.textContent = 'Нет доступного времени на эту дату';
+        noOption.disabled = true;
+        noOption.selected = true;
+        timeSelect.appendChild(noOption);
+      }
+    }
+    
+    // Проверка доступности при изменении времени/длительности
+    function checkTimeAvailability() {
+      var timeSelect = document.getElementById('time');
+      var durationSelect = document.getElementById('duration');
+      var dateInput = document.getElementById('date');
+      
+      if (!timeSelect || !durationSelect || !dateInput) return true;
+      
+      var selectedTime = timeSelect.value;
+      var selectedDate = dateInput.value;
+      var durationHours = parseInt(durationSelect.value);
+      
+      if (!selectedDate || !selectedTime || !durationHours) return true;
+      
+      if (!isTimeSlotAvailable(selectedDate, selectedTime, durationHours)) {
+        alert('Это время недоступно! Возможно, оно пересекается с другой бронью или временем на уборку зала (30 минут после брони). Пожалуйста, выберите другое время.');
+        // Перезаполняем опции
+        populateTimeOptions();
+        return false;
+      }
+      return true;
+    }
+
+    var translations = {
+      'ru': {
+        hotel_prefix: "Гостиница", hotel_name: "«Алтай»",
+        navHome: "Главная", navAbout: "О нас", navBooking: "Бронирование", navContacts: "Контакты", navProfile: "Личный кабинет",
+        login: "Вход", register: "Регистрация",
+        pageTitleHero: "Бронирование зала", heroSubtitle: "Забронируйте конференц-зал для вашего мероприятия прямо сейчас",
+        quote1: '"Мы создаем идеальные условия для ваших важных встреч и мероприятий. Каждая деталь продумана для вашего комфорта и успеха."',
+        quote2: '"Ваше мероприятие заслуживает идеального пространства. Мы создаем условия, где рождаются великие идеи и заключаются важные сделки."',
+        personalInfo: "Личная информация", nameLabel: "Ваше имя *", phoneLabel: "Телефон *", emailLabel: "Email *", companyLabel: "Компания",
+        eventDetails: "Детали мероприятия", eventNameLabel: "Название мероприятия *", dateLabel: "Дата мероприятия *", timeLabel: "Время *",
+        durationLabel: "Продолжительность (часов) *", attendeesLabel: "Количество участников *",
+        additionalServices: "Дополнительные услуги", coffeeLabel: "Кофе-брейк (+500 ₽/чел)", lunchLabel: "Бизнес-ланч (450 ₽/чел)",
+        totalTitle: "Итоговая стоимость", rentalLabel: "Стоимость аренды:", additionalLabel: "Дополнительные услуги:", totalLabel: "К ОПЛАТЕ:",
+        messageLabel: "Дополнительные пожелания (до 500 символов)", submitButton: "Отправить заявку",
+        contactInfo: "Контактная информация", whyChooseUs: "Почему выбирают нас", reason1: "Современное оборудование",
+        reason2: "Профессиональный сервис", reason3: "Удобное расположение", reason4: "Гибкие условия аренды",
+        workTime: "Круглосуточно", officialSiteLink: "Перейти на официальный сайт гостиницы «Алтай»",
+        copyright: "© 2026 ООО \"ГостАлт\". Все права защищены.", developer: "Разработчик: Еграшина Валерия",
+        footerAddress: "г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83",
+        phoneHint: "Формат: +7 (999) 999-99-99", emailHint: "Формат: example@mail.ru", charRemaining: "Осталось символов:",
+        successMessage: '✅ Заявка успешно отправлена! Мы свяжемся с вами.',
+        errorMessage: '❌ Ошибка при отправке. Попробуйте позже.'
+      },
+      'en': {
+        hotel_prefix: "Hotel", hotel_name: "«Altai»",
+        navHome: "Home", navAbout: "About", navBooking: "Booking", navContacts: "Contacts", navProfile: "Profile",
+        login: "Login", register: "Register",
+        pageTitleHero: "Hall Booking", heroSubtitle: "Book the conference hall for your event right now",
+        quote1: '"We create ideal conditions for your important meetings and events. Every detail is thought out for your comfort and success."',
+        quote2: '"Your event deserves a perfect space. We create conditions where great ideas are born and important deals are made."',
+        personalInfo: "Personal Information", nameLabel: "Your Name *", phoneLabel: "Phone *", emailLabel: "Email *", companyLabel: "Company",
+        eventDetails: "Event Details", eventNameLabel: "Event Name *", dateLabel: "Event Date *", timeLabel: "Time *",
+        durationLabel: "Duration (hours) *", attendeesLabel: "Number of Participants *",
+        additionalServices: "Additional Services", coffeeLabel: "Coffee Break (+500 ₽/person)", lunchLabel: "Business Lunch (450 ₽/person)",
+        totalTitle: "Total Cost", rentalLabel: "Rental Cost:", additionalLabel: "Additional Services:", totalLabel: "TO PAY:",
+        messageLabel: "Additional Wishes (up to 500 characters)", submitButton: "Send Request",
+        contactInfo: "Contact Information", whyChooseUs: "Why Choose Us", reason1: "Modern equipment",
+        reason2: "Professional service", reason3: "Convenient location", reason4: "Flexible rental terms",
+        workTime: "24/7", officialSiteLink: "Go to official website of Hotel Altai",
+        copyright: "© 2026 LLC \"GostAlt\". All rights reserved.", developer: "Developer: Valeria Egrashina",
+        footerAddress: "Barnaul, Lenina Ave 24 / Anatoliya St 83",
+        phoneHint: "Format: +7 (999) 999-99-99", emailHint: "Format: example@mail.ru", charRemaining: "Characters left:",
+        successMessage: '✅ Request sent successfully! We will contact you.',
+        errorMessage: '❌ Error sending request. Please try again.'
+      },
+      'zh': {
+        hotel_prefix: "酒店", hotel_name: "「阿尔泰」",
+        navHome: "首页", navAbout: "关于", navBooking: "预订", navContacts: "联系方式", navProfile: "个人中心",
+        login: "登录", register: "注册",
+        pageTitleHero: "厅堂预订", heroSubtitle: "立即为您的活动预订会议厅",
+        quote1: '"我们为您的重要会议和活动创造理想条件。每一个细节都为您舒适和成功而精心设计。"',
+        quote2: '"您的活动值得完美的空间。我们创造条件，让伟大想法诞生，重要交易达成。"',
+        personalInfo: "个人信息", nameLabel: "您的姓名 *", phoneLabel: "电话 *", emailLabel: "邮箱 *", companyLabel: "公司",
+        eventDetails: "活动详情", eventNameLabel: "活动名称 *", dateLabel: "活动日期 *", timeLabel: "时间 *",
+        durationLabel: "持续时间 (小时) *", attendeesLabel: "参与人数 *",
+        additionalServices: "附加服务", coffeeLabel: "咖啡休息 (+500 ₽/人)", lunchLabel: "商务午餐 (450 ₽/人)",
+        totalTitle: "总费用", rentalLabel: "租赁费用:", additionalLabel: "附加服务:", totalLabel: "应付金额:",
+        messageLabel: "附加要求 (最多500字符)", submitButton: "发送申请",
+        contactInfo: "联系信息", whyChooseUs: "为何选择我们", reason1: "现代化设备",
+        reason2: "专业服务", reason3: "便利位置", reason4: "灵活租赁条件",
+        workTime: "24/7", officialSiteLink: "前往阿尔泰酒店官方网站",
+        copyright: "© 2026 戈斯特阿尔特有限责任公司。版权所有。", developer: "开发者: 瓦莱里娅·叶格拉希娜",
+        footerAddress: "巴尔瑙尔市，列宁大道24号/阿纳托利亚街83号",
+        phoneHint: "格式：+7 (999) 999-99-99", emailHint: "格式：example@mail.ru", charRemaining: "剩余字符:",
+        successMessage: '✅ 申请已成功发送！我们会与您联系。',
+        errorMessage: '❌ 发送错误。请稍后再试。'
+      }
+    };
+
+    function setMinDate() {
+      var today = new Date();
+      var yyyy = today.getFullYear();
+      var mm = today.getMonth() + 1;
+      var dd = today.getDate();
+      if (mm < 10) mm = '0' + mm;
+      if (dd < 10) dd = '0' + dd;
+      var dateInput = document.getElementById('date');
+      if (dateInput) dateInput.min = yyyy + '-' + mm + '-' + dd;
+    }
+
+    function calculateTotal() {
+      var durationSelect = document.getElementById('duration');
+      var attendeesInput = document.getElementById('attendees');
+      var coffeeCheckbox = document.getElementById('coffee_break');
+      var lunchCheckbox = document.getElementById('business_lunch');
+      var duration = durationSelect ? parseInt(durationSelect.value) || 0 : 0;
+      var attendees = attendeesInput ? parseInt(attendeesInput.value) || 0 : 0;
+      var rentalCost = duration * HOURLY_RATE;
+      var additionalCost = 0;
+      if (coffeeCheckbox && coffeeCheckbox.checked) additionalCost += COFFEE_BREAK_PRICE * attendees;
+      if (lunchCheckbox && lunchCheckbox.checked) additionalCost += LUNCH_PRICE * attendees;
+      var totalCost = rentalCost + additionalCost;
+      var rentalSpan = document.getElementById('rental-cost');
+      var additionalSpan = document.getElementById('additional-cost');
+      var totalSpan = document.getElementById('total-cost');
+      if (rentalSpan) rentalSpan.textContent = rentalCost.toLocaleString('ru-RU') + ' ₽';
+      if (additionalSpan) additionalSpan.textContent = additionalCost.toLocaleString('ru-RU') + ' ₽';
+      if (totalSpan) totalSpan.textContent = totalCost.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      var t = translations[lang];
+      if (!t) return;
+      if (lang === 'ru') document.title = 'Бронирование - Конференц-зал «Алтай»';
+      else if (lang === 'en') document.title = 'Booking - Conference Hall Altai';
+      else document.title = '预订 - 阿尔泰会议厅';
+
+      var elements = document.querySelectorAll('[data-lang-key]');
+      for (var i = 0; i < elements.length; i++) {
+        var el = elements[i];
+        var key = el.getAttribute('data-lang-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            if (el.placeholder !== undefined) el.placeholder = t[key];
+          } else {
+            el.innerText = t[key];
+          }
+        }
+      }
+
+      var durationSelect = document.getElementById('duration');
+      if (durationSelect) {
+        for (var i = 0; i < durationSelect.options.length; i++) {
+          var val = durationSelect.options[i].value;
+          if (lang === 'ru') {
+            if (val == 1) durationSelect.options[i].text = val + ' час';
+            else if (val < 5) durationSelect.options[i].text = val + ' часа';
+            else durationSelect.options[i].text = val + ' часов';
+          } else if (lang === 'en') {
+            durationSelect.options[i].text = val + ' ' + (val == 1 ? 'hour' : 'hours');
+          } else {
+            durationSelect.options[i].text = val + ' 小时';
+          }
+        }
+      }
+
+      var messageField = document.getElementById('message');
+      if (messageField) {
+        var remaining = 500 - messageField.value.length;
+        var charSpan = document.getElementById('charCount');
+        if (charSpan) charSpan.innerHTML = t.charRemaining + ' ' + remaining;
+      }
+    }
+
+    function showNotification(message, type) {
+      var notification = document.createElement('div');
+      var bgColor = (type === 'success') ? '#28a745' : '#dc3545';
+      notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: ' + bgColor + '; color: white; padding: 1rem 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 3000; transform: translateX(100%); transition: transform 0.3s ease; font-family: \'Cormorant Garamond\', serif; font-size: 1.1rem;';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      setTimeout(function() { notification.style.transform = 'translateX(0)'; }, 100);
+      setTimeout(function() {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(function() { notification.remove(); }, 300);
+      }, 4000);
+    }
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    window.addEventListener('scroll', function() {
+      var scrollBtn = document.querySelector('.scroll-to-top');
+      if (window.pageYOffset > 300) scrollBtn.style.display = 'flex';
+      else scrollBtn.style.display = 'none';
+      var fadeElements = document.querySelectorAll('.fade-in');
+      for (var i = 0; i < fadeElements.length; i++) {
+        var el = fadeElements[i];
+        if (el.getBoundingClientRect().top < window.innerHeight - 150) {
+          el.classList.add('visible');
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      setMinDate();
+      calculateTotal();
+      var fadeElements = document.querySelectorAll('.fade-in');
+      for (var i = 0; i < fadeElements.length; i++) {
+        var el = fadeElements[i];
+        if (el.getBoundingClientRect().top < window.innerHeight - 150) {
+          el.classList.add('visible');
+        }
+      }
+
+      var savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+      var langSelect = document.getElementById('languageSelect');
+      if (langSelect) langSelect.value = savedLang;
+      changeLanguage(savedLang);
+
+      // АВТО-ЗАПОЛНЕНИЕ ФОРМЫ ИЗ LOCALSTORAGE (личный кабинет)
+      var userName = localStorage.getItem('userName');
+      var userPhone = localStorage.getItem('userPhone');
+      var userEmail = localStorage.getItem('userEmail');
+      
+      var nameInput = document.getElementById('name');
+      var phoneInput = document.getElementById('phone');
+      var emailInput = document.getElementById('email');
+      
+      if (nameInput && userName) nameInput.value = userName;
+      if (phoneInput && userPhone) phoneInput.value = userPhone;
+      if (emailInput && userEmail) emailInput.value = userEmail;
+
+      var messageField = document.getElementById('message');
+      if (messageField) {
+        var t = translations[savedLang];
+        var rem = 500 - messageField.value.length;
+        var charSpan = document.getElementById('charCount');
+        if (charSpan) charSpan.innerHTML = t.charRemaining + ' ' + rem;
+        messageField.addEventListener('input', function() {
+          var remaining = 500 - this.value.length;
+          var tCurr = translations[currentLang];
+          var charSpan2 = document.getElementById('charCount');
+          if (charSpan2) charSpan2.innerHTML = tCurr.charRemaining + ' ' + remaining;
+        });
+      }
+      
+      // Инициализация select времени
+      var timeSelect = document.getElementById('time');
+      if (timeSelect) {
+        // Заполняем начальные опции
+        var defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Сначала выберите дату';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        timeSelect.appendChild(defaultOption);
+      }
+      
+      // Обработчик изменения даты
+      var dateInput = document.getElementById('date');
+      if (dateInput) {
+        dateInput.addEventListener('change', function() {
+          populateTimeOptions();
+        });
+      }
+      
+      // Обработчик изменения длительности
+      var durationSelect = document.getElementById('duration');
+      if (durationSelect) {
+        durationSelect.addEventListener('change', function() {
+          if (dateInput && dateInput.value) {
+            populateTimeOptions();
+          }
+        });
+      }
+
+      var form = document.getElementById('reservation-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Дополнительная проверка на доступность перед отправкой
+          var selectedDate = dateInput.value;
+          var selectedTime = timeSelect.value;
+          var selectedDuration = parseInt(durationSelect.value);
+          
+          if (!isTimeSlotAvailable(selectedDate, selectedTime, selectedDuration)) {
+            alert('Извините, это время уже недоступно! Пожалуйста, выберите другое время.');
+            populateTimeOptions();
+            return;
+          }
+          
+          var formData = new FormData(form);
+          var t = translations[currentLang];
+          
+          // Сохраняем бронь в localStorage
+          var bookingData = {
+            date: selectedDate,
+            time: selectedTime,
+            duration: selectedDuration,
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            event_name: formData.get('event_name'),
+            attendees: parseInt(formData.get('attendees')),
+            company: formData.get('company') || '',
+            message: formData.get('message') || '',
+            coffee_break: formData.get('coffee_break') === 'on',
+            business_lunch: formData.get('business_lunch') === 'on',
+            timestamp: new Date().toISOString()
+          };
+          saveBooking(bookingData);
+          
+          fetch('/booking', {
+            method: 'POST',
+            body: formData
+          })
+          .then(function(response) { return response.text(); })
+          .then(function(data) {
+            showNotification(t.successMessage, 'success');
+            form.reset();
+            calculateTotal();
+            setMinDate();
+            // Восстанавливаем авто-заполненные данные после сброса
+            if (nameInput && userName) nameInput.value = userName;
+            if (phoneInput && userPhone) phoneInput.value = userPhone;
+            if (emailInput && userEmail) emailInput.value = userEmail;
+            // Обновляем доступные времена
+            if (dateInput && dateInput.value) {
+              populateTimeOptions();
+            }
+          })
+          .catch(function(error) {
+            showNotification(t.errorMessage, 'error');
+          });
+        });
+      }
+    });
+
+    var langSelectEl = document.getElementById('languageSelect');
+    if (langSelectEl) {
+      langSelectEl.addEventListener('change', function() {
+        changeLanguage(this.value);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title id="pageTitle">Контакты - Конференц-зал «Алтай»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #B29559;
+      --dark-gold: #8a7546;
+      --light-gold: #e8ddc3;
+      --dark: #222;
+      --light: #f5f5f5;
+      --white: #fff;
+      --gray: #555;
+      --transition: all 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    .site-logo {
+      position: fixed;
+      top: 18px;
+      left: 25px;
+      z-index: 2001;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .logo-text {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      padding: 8px 24px;
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-left: 3px solid var(--gold);
+      border-right: 3px solid var(--gold);
+      transition: var(--transition);
+    }
+    .logo-text:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.02);
+      border-left-color: var(--dark-gold);
+      border-right-color: var(--dark-gold);
+    }
+    .logo-altai {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .logo-hotel {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #eee;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .site-logo { top: 12px; left: 15px; }
+      .logo-text { padding: 5px 16px; }
+      .logo-altai { font-size: 20px; letter-spacing: 3px; }
+      .logo-hotel { font-size: 9px; letter-spacing: 2px; }
+    }
+    @media (max-width: 480px) {
+      .logo-text { padding: 4px 12px; }
+      .logo-altai { font-size: 16px; letter-spacing: 2px; }
+      .logo-hotel { font-size: 7px; letter-spacing: 1.5px; }
+    }
+
+    .navbar {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 0;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 70px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      transition: var(--transition);
+      font-size: 1.05em;
+      white-space: nowrap;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .auth-link {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: white !important;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(178,149,89,0.3);
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.3);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .auth-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(178,149,89,0.5);
+      background: var(--dark-gold);
+      color: white;
+    }
+    .lang-switcher { position: relative; }
+    .lang-select {
+      padding: 8px 30px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      background: var(--white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      transition: var(--transition);
+      min-width: 110px;
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gold);
+      color: var(--white);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 1000;
+      border: none;
+      font-size: 1.3em;
+    }
+    .scroll-to-top:hover { background: var(--dark-gold); transform: translateY(-3px); }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 100px auto 60px;
+      padding: 0 20px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--dark);
+      position: relative;
+      font-weight: 600;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 120px;
+      height: 4px;
+      background: var(--gold);
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) { .section-title { font-size: 2.2em; } }
+
+    .contacts-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('/static/images/контакты.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      padding: 6rem 2rem;
+      text-align: center;
+      color: var(--white);
+      border-radius: 20px;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .contacts-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    .contacts-hero h1 { font-size: 3.5em; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); font-family: 'Cormorant Garamond', serif; }
+    @media (max-width: 768px) { .contacts-hero h1 { font-size: 2.5em; } }
+    .contacts-hero p { font-size: 1.4em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    .contacts-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 768px) { .contacts-container { grid-template-columns: 1fr; } }
+
+    .contact-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: var(--transition);
+    }
+    .contact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+    .contact-icon {
+      width: 60px; height: 60px; background: var(--light-gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5em; color: var(--gold); flex-shrink: 0;
+    }
+    .contact-details h3 { font-family: 'Cormorant Garamond', serif; margin-bottom: 0.5rem; color: var(--dark); }
+    .contact-details p { margin: 0.3rem 0; color: var(--gray); }
+
+    .contact-form {
+      background: var(--white); padding: 2rem; border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-control {
+      width: 100%; padding: 12px 15px; border: 2px solid var(--light-gold);
+      border-radius: 10px; font-size: 1.1em; transition: var(--transition);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .form-control:focus {
+      border-color: var(--gold); outline: none;
+      box-shadow: 0 0 0 3px rgba(178,149,89,0.1);
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+      color: var(--white); border: none; padding: 15px 30px;
+      border-radius: 50px; font-size: 1.2em; cursor: pointer;
+      transition: var(--transition); width: 100%; font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(178,149,89,0.6); }
+
+    .map-section { margin-top: 4rem; }
+    .map-container {
+      background: var(--white); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden; height: 400px;
+    }
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+    .quote-section {
+      background: linear-gradient(135deg, var(--light-gold), var(--white));
+      padding: 4rem 2rem; border-radius: 20px; margin: 4rem 0;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .quote-section::before {
+      content: '"'; position: absolute; top: 20px; left: 40px; font-size: 8em;
+      color: var(--gold); opacity: 0.2; font-family: serif;
+    }
+    .quote-text {
+      font-size: 1.6em; font-style: italic; color: var(--dark); margin-bottom: 0;
+      line-height: 1.6; position: relative; z-index: 1;
+    }
+    @media (max-width: 768px) { .quote-text { font-size: 1.3rem; } }
+
+    footer {
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a); padding: 3rem 1rem 2rem;
+      margin-top: 6rem; color: #eee; position: relative;
+    }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .footer-contacts { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; }
+    .footer-contact-item { display: flex; align-items: center; gap: 0.8rem; }
+    .footer-contact-item i { color: var(--gold); }
+    .footer-contact-item a, .footer-contact-item span { color: #ddd; text-decoration: none; transition: var(--transition); }
+    .footer-contact-item a:hover { color: var(--gold); }
+    .official-site-link {
+      background: var(--gold); display: inline-block; width: fit-content; margin: 0 auto;
+      padding: 10px 24px; border-radius: 40px; color: white; text-decoration: none;
+      font-weight: 600; transition: 0.2s;
+    }
+    .official-site-link:hover { background: var(--dark-gold); transform: scale(1.02); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+      margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.2rem; font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.7rem; }
+      .footer-contacts { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+    .developer { font-style: italic; color: var(--gold); }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--gold); cursor: pointer; }
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      .nav-container { justify-content: space-between; }
+      .navbar-collapse { background: var(--white); padding: 1rem; border-radius: 10px; margin-top: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+      .nav-menu { flex-direction: column; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-logo" onclick="location.href='/'">
+    <div class="logo-text">
+      <span class="logo-altai">ALTAI</span>
+      <span class="logo-hotel">HOTEL</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="nav-container">
+      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-menu">
+          <a href="/" class="nav-link" data-lang-key="navHome">Главная</a>
+          <a href="/about" class="nav-link" data-lang-key="navAbout">О нас</a>
+          <a href="/booking" class="nav-link" data-lang-key="navBooking">Бронирование</a>
+          <a href="/contacts" class="nav-link active" data-lang-key="navContacts">Контакты</a>
+          <a href="/personal" class="nav-link" data-lang-key="navProfile">Личный кабинет</a>
+          <a href="/login" class="nav-link auth-link" data-lang-key="login">Вход</a>
+          <a href="/register" class="nav-link auth-link" data-lang-key="register">Регистрация</a>
+          <div class="lang-switcher">
+            <select class="lang-select" id="languageSelect">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <button class="scroll-to-top" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+
+  <div class="content-section">
+    <div class="contacts-hero fade-in">
+      <h1 data-lang-key="pageTitle">Контакты</h1>
+      <p data-lang-key="heroSubtitle">Свяжитесь с нами для бронирования или получения дополнительной информации</p>
+    </div>
+
+    <div class="quote-section fade-in">
+      <p class="quote-text" data-lang-key="quote1">"Мы всегда на связи и готовы помочь вам организовать идеальное мероприятие. Ваш комфорт — наш приоритет."</p>
+    </div>
+
+    <div class="contacts-container">
+      <div class="contact-info">
+        <div class="contact-card fade-in">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-details">
+            <h3 data-lang-key="addressTitle">Адрес</h3>
+            <p data-lang-key="addressText">656056, г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</p>
+            <p style="color: var(--gold); font-weight: 600;" data-lang-key="addressNote">Центральное расположение в исторической части города</p>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-details">
+            <h3 data-lang-key="phonesTitle">Телефоны</h3>
+            <p><span data-lang-key="phoneFree">+7-800-700-36-50</span> <span data-lang-key="phoneFreeLabel">(бесплатный по России)</span></p>
+            <p><span data-lang-key="phoneMain">+7 (3852) 50-24-24</span> <span data-lang-key="phoneMainLabel">(основной)</span></p>
+            <p><span data-lang-key="phoneManager">+7 (961) 242-29-59</span> <span data-lang-key="phoneManagerLabel">(менеджер по бронированию)</span></p>
+            <p><span data-lang-key="phoneAdmin">+7 (961) 992-93-43</span> <span data-lang-key="phoneAdminLabel">(администратор)</span></p>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-details">
+            <h3 data-lang-key="emailTitle">Email</h3>
+            <p>info@hotel-altai22.ru <span data-lang-key="emailInfoLabel">(общие вопросы)</span></p>
+            <p>booking@hotel-altai22.ru <span data-lang-key="emailBookingLabel">(бронирование)</span></p>
+            <p style="color: var(--gold); font-weight: 600;" data-lang-key="emailNote">Отвечаем в течение 2 часов</p>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-icon"><i class="fas fa-clock"></i></div>
+          <div class="contact-details">
+            <h3 data-lang-key="hoursTitle">Часы работы</h3>
+            <p><strong data-lang-key="hours24">Круглосуточно</strong></p>
+            <p data-lang-key="reception24">Ресепшен: 24/7</p>
+            <p data-lang-key="bookingHours">Бронирование: 08:00 - 22:00</p>
+            <p data-lang-key="managerHours">Менеджер: 09:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form fade-in">
+        <h3 data-lang-key="questionsTitle">Остались вопросы?</h3>
+        <p style="color: var(--gray); margin-bottom: 2rem;" data-lang-key="questionsText">Заполните форму и мы свяжемся с вами в ближайшее время</p>
+        <form id="contactForm">
+          <div class="form-group">
+            <label data-lang-key="nameLabel">Ваше имя *</label>
+            <input type="text" id="contact-name" class="form-control" required maxlength="100" data-lang-placeholder="namePlaceholder">
+            <small style="color: var(--gray); font-size: 0.85em;" data-lang-key="nameLimit">Максимум 100 символов</small>
+          </div>
+          <div class="form-group">
+            <label data-lang-key="phoneLabel">Телефон *</label>
+            <input type="tel" id="contact-phone" class="form-control" required maxlength="20" placeholder="+7 (999) 999-99-99">
+            <small style="color: var(--gray); font-size: 0.85em;" data-lang-key="phoneHint">Формат: +7 (999) 999-99-99</small>
+          </div>
+          <div class="form-group">
+            <label data-lang-key="emailLabel">Email</label>
+            <input type="email" id="contact-email" class="form-control" maxlength="100">
+          </div>
+          <div class="form-group">
+            <label data-lang-key="messageLabel">Сообщение *</label>
+            <textarea id="contact-message" class="form-control" rows="5" required maxlength="500" placeholder="Расскажите, чем мы можем вам помочь..."></textarea>
+            <small style="color: var(--gray); font-size: 0.85em; display: block; margin-top: 5px;" id="charCountMessage" data-lang-key="charRemaining">Осталось символов: 500</small>
+          </div>
+          <button type="submit" class="btn-submit" id="submitButton" data-lang-key="submitButton">Отправить сообщение</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="quote-section fade-in" style="background: linear-gradient(135deg, var(--white), var(--light-gold));">
+      <p class="quote-text" data-lang-key="quote2">"Каждое обращение важно для нас. Мы ценим ваше время и стремимся предоставить самый качественный сервис."</p>
+    </div>
+
+    <div class="map-section fade-in">
+      <h2 class="section-title" data-lang-key="mapTitle">Мы на карте</h2>
+      <div class="map-container">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7b8e3b2c4a5d6f7g8h9i0j&source=constructor" width="100%" height="400" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-contacts">
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-lang-key="footerAddress">г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+78007003650">+7-800-700-36-50</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@hotel-altai22.ru">info@hotel-altai22.ru</a></div>
+      </div>
+      <div style="text-align:center;">
+        <a href="https://hotel-altai22.ru/" target="_blank" class="official-site-link" data-lang-key="officialSiteLink">Перейти на официальный сайт гостиницы «Алтай»</a>
+      </div>
+      <div class="footer-bottom">
+        <span data-lang-key="copyright">© 2026 ООО "ГостАлт". Все права защищены.</span>
+        <span class="developer" data-lang-key="developer">Разработчик: Еграшина Валерия</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var translations = {
+      ru: {
+        pageTitle: "Контакты", heroSubtitle: "Свяжитесь с нами для бронирования или получения дополнительной информации",
+        quote1: '"Мы всегда на связи и готовы помочь вам организовать идеальное мероприятие. Ваш комфорт — наш приоритет."',
+        quote2: '"Каждое обращение важно для нас. Мы ценим ваше время и стремимся предоставить самый качественный сервис."',
+        addressTitle: "Адрес", addressText: "656056, г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83", addressNote: "Центральное расположение в исторической части города",
+        phonesTitle: "Телефоны", phoneFree: "+7-800-700-36-50", phoneFreeLabel: "(бесплатный по России)",
+        phoneMain: "+7 (3852) 50-24-24", phoneMainLabel: "(основной)", phoneManager: "+7 (961) 242-29-59", phoneManagerLabel: "(менеджер по бронированию)",
+        phoneAdmin: "+7 (961) 992-93-43", phoneAdminLabel: "(администратор)",
+        emailTitle: "Email", emailInfoLabel: "(общие вопросы)", emailBookingLabel: "(бронирование)", emailNote: "Отвечаем в течение 2 часов",
+        hoursTitle: "Часы работы", hours24: "Круглосуточно", reception24: "Ресепшен: 24/7", bookingHours: "Бронирование: 08:00 - 22:00", managerHours: "Менеджер: 09:00 - 18:00",
+        questionsTitle: "Остались вопросы?", questionsText: "Заполните форму и мы свяжемся с вами в ближайшее время",
+        nameLabel: "Ваше имя *", phoneLabel: "Телефон *", emailLabel: "Email", messageLabel: "Сообщение *",
+        submitButton: "Отправить сообщение", mapTitle: "Мы на карте",
+        officialSiteLink: "Перейти на официальный сайт гостиницы «Алтай»",
+        copyright: "© 2026 ООО \"ГостАлт\". Все права защищены.",
+        developer: "Разработчик: Еграшина Валерия",
+        footerAddress: "г. Барнаул, пр-т Ленина 24 / ул. Анатолия 83",
+        navHome: "Главная", navAbout: "О нас", navBooking: "Бронирование", navContacts: "Контакты", navProfile: "Личный кабинет",
+        login: "Вход", register: "Регистрация",
+        charRemaining: "Осталось символов:",
+        nameLimit: "Максимум 100 символов",
+        phoneHint: "Формат: +7 (999) 999-99-99"
+      },
+      en: {
+        pageTitle: "Contacts", heroSubtitle: "Contact us for booking or additional information",
+        quote1: '"We are always in touch and ready to help you organize the perfect event. Your comfort is our priority."',
+        quote2: '"Every request matters to us. We value your time and strive to provide the highest quality service."',
+        addressTitle: "Address", addressText: "656056, Barnaul, Lenin Ave. 24 / Anatolia St. 83", addressNote: "Central location in the historic part of the city",
+        phonesTitle: "Phones", phoneFree: "+7-800-700-36-50", phoneFreeLabel: "(free in Russia)",
+        phoneMain: "+7 (3852) 50-24-24", phoneMainLabel: "(main)", phoneManager: "+7 (961) 242-29-59", phoneManagerLabel: "(booking manager)",
+        phoneAdmin: "+7 (961) 992-93-43", phoneAdminLabel: "(administrator)",
+        emailTitle: "Email", emailInfoLabel: "(general questions)", emailBookingLabel: "(booking)", emailNote: "We reply within 2 hours",
+        hoursTitle: "Working Hours", hours24: "24/7", reception24: "Reception: 24/7", bookingHours: "Booking: 08:00 - 22:00", managerHours: "Manager: 09:00 - 18:00",
+        questionsTitle: "Any questions?", questionsText: "Fill out the form and we will contact you shortly",
+        nameLabel: "Your Name *", phoneLabel: "Phone *", emailLabel: "Email", messageLabel: "Message *",
+        submitButton: "Send Message", mapTitle: "We on the map",
+        officialSiteLink: "Go to the official website of Hotel Altai",
+        copyright: "© 2026 LLC \"GostAlt\". All rights reserved.",
+        developer: "Developer: Valeria Egrashina",
+        footerAddress: "Barnaul, Lenin Ave. 24 / Anatolia St. 83",
+        navHome: "Home", navAbout: "About", navBooking: "Booking", navContacts: "Contacts", navProfile: "Profile",
+        login: "Login", register: "Register",
+        charRemaining: "Characters left:",
+        nameLimit: "Maximum 100 characters",
+        phoneHint: "Format: +7 (999) 999-99-99"
+      },
+      zh: {
+        pageTitle: "联系方式", heroSubtitle: "联系我们进行预订或获取更多信息",
+        quote1: '"我们随时为您服务，帮助您组织完美的活动。您的舒适是我们的首要任务。"',
+        quote2: '"每一次联系对我们都很重要。我们珍惜您的时间，致力于提供最优质的服务。"',
+        addressTitle: "地址", addressText: "656056, 巴尔瑙尔, 列宁大街24号 / 安纳托利亚街83号", addressNote: "位于城市历史中心",
+        phonesTitle: "电话", phoneFree: "+7-800-700-36-50", phoneFreeLabel: "(俄罗斯境内免费)",
+        phoneMain: "+7 (3852) 50-24-24", phoneMainLabel: "(主要)", phoneManager: "+7 (961) 242-29-59", phoneManagerLabel: "(预订经理)",
+        phoneAdmin: "+7 (961) 992-93-43", phoneAdminLabel: "(管理员)",
+        emailTitle: "邮箱", emailInfoLabel: "(一般问题)", emailBookingLabel: "(预订)", emailNote: "2小时内回复",
+        hoursTitle: "工作时间", hours24: "24小时", reception24: "前台: 24/7", bookingHours: "预订: 08:00 - 22:00", managerHours: "经理: 09:00 - 18:00",
+        questionsTitle: "还有问题吗？", questionsText: "填写表格，我们会尽快与您联系",
+        nameLabel: "您的姓名 *", phoneLabel: "电话 *", emailLabel: "邮箱", messageLabel: "消息 *",
+        submitButton: "发送消息", mapTitle: "我们的位置",
+        officialSiteLink: "访问阿尔泰酒店官网",
+        copyright: "© 2026 戈斯特阿尔特有限责任公司。版权所有。",
+        developer: "开发者: 瓦莱里娅·叶格拉希娜",
+        footerAddress: "巴尔瑙尔市，列宁大街24号 / 阿纳托利亚街83号",
+        navHome: "首页", navAbout: "关于我们", navBooking: "预订", navContacts: "联系方式", navProfile: "个人中心",
+        login: "登录", register: "注册",
+        charRemaining: "剩余字符:",
+        nameLimit: "最多100个字符",
+        phoneHint: "格式：+7 (999) 999-99-99"
+      }
+    };
+
+    var currentLang = localStorage.getItem('preferredLanguage') || 'ru';
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      var t = translations[lang];
+      if (!t) return;
+      if (lang === 'ru') document.title = 'Контакты - Конференц-зал «Алтай»';
+      else if (lang === 'en') document.title = 'Contacts - Conference Hall Altai';
+      else document.title = '联系方式 - 阿尔泰会议厅';
+
+      var elements = document.querySelectorAll('[data-lang-key]');
+      for (var i = 0; i < elements.length; i++) {
+        var el = elements[i];
+        var key = el.getAttribute('data-lang-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            if (el.placeholder !== undefined) el.placeholder = t[key];
+          } else {
+            el.innerText = t[key];
+          }
+        }
+      }
+      
+      // Обновляем плейсхолдер для имени
+      var nameInput = document.getElementById('contact-name');
+      if (nameInput && t.namePlaceholder) nameInput.placeholder = t.namePlaceholder;
+      
+      // Обновляем счетчик символов
+      var messageField = document.getElementById('contact-message');
+      if (messageField) {
+        var remaining = 500 - messageField.value.length;
+        var charSpan = document.getElementById('charCountMessage');
+        if (charSpan) charSpan.innerHTML = t.charRemaining + ' ' + remaining;
+      }
+    }
+
+    var langSelect = document.getElementById('languageSelect');
+    if (langSelect) {
+      langSelect.addEventListener('change', function(e) { changeLanguage(e.target.value); });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+      var selectEl = document.getElementById('languageSelect');
+      if (selectEl) selectEl.value = savedLang;
+      changeLanguage(savedLang);
+
+      var fades = document.querySelectorAll('.fade-in');
+      var observer = new IntersectionObserver(function(entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) entries[i].target.classList.add('visible');
+        }
+      }, { threshold: 0.1 });
+      for (var i = 0; i < fades.length; i++) observer.observe(fades[i]);
+      
+      var messageField = document.getElementById('contact-message');
+      if (messageField) {
+        var charSpan = document.getElementById('charCountMessage');
+        messageField.addEventListener('input', function() {
+          var remaining = 500 - this.value.length;
+          var t = translations[currentLang];
+          if (charSpan) charSpan.innerHTML = t.charRemaining + ' ' + remaining;
+        });
+      }
+    });
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.addEventListener('scroll', function() {
+      var btn = document.querySelector('.scroll-to-top');
+      if (window.scrollY > 300) btn.style.display = 'flex';
+      else btn.style.display = 'none';
+    });
+
+    var contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('contact-name').value;
+        var phone = document.getElementById('contact-phone').value;
+        var msg = document.getElementById('contact-message').value;
+        if (!name || !phone || !msg) {
+          var t = translations[currentLang];
+          var errorMsg = (currentLang === 'ru') ? 'Пожалуйста, заполните все обязательные поля' : ((currentLang === 'en') ? 'Please fill all required fields' : '请填写所有必填字段');
+          showNotification(errorMsg, 'error');
+          return;
+        }
+        var btn = document.querySelector('#submitButton');
+        var orig = btn.innerHTML;
+        var loadingText = (currentLang === 'ru') ? 'Отправка...' : ((currentLang === 'en') ? 'Sending...' : '发送中...');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + loadingText;
+        btn.disabled = true;
+        setTimeout(function() {
+          var successMsg = (currentLang === 'ru') ? '✅ Сообщение успешно отправлено! Мы свяжемся с вами.' : ((currentLang === 'en') ? '✅ Message sent successfully! We will contact you.' : '✅ 消息已成功发送！我们会与您联系。');
+          showNotification(successMsg, 'success');
+          btn.innerHTML = orig;
+          btn.disabled = false;
+          contactForm.reset();
+          var charSpan = document.getElementById('charCountMessage');
+          if (charSpan) {
+            var t = translations[currentLang];
+            charSpan.innerHTML = t.charRemaining + ' 500';
+          }
+        }, 1500);
+      });
+    }
+
+    function showNotification(message, type) {
+      var notif = document.createElement('div');
+      var bgColor = (type === 'success') ? '#28a745' : '#dc3545';
+      notif.style.cssText = 'position: fixed; top: 100px; right: 20px; background: ' + bgColor + '; color: white; padding: 1rem 2rem; border-radius: 10px; z-index: 3000; transform: translateX(100%); transition: transform 0.3s ease; font-family: \'Cormorant Garamond\', serif; font-size: 1.1rem;';
+      notif.innerText = message;
+      document.body.appendChild(notif);
+      setTimeout(function() { notif.style.transform = 'translateX(0)'; }, 50);
+      setTimeout(function() {
+        notif.style.transform = 'translateX(100%)';
+        setTimeout(function() { notif.remove(); }, 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
